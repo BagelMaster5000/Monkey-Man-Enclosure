@@ -1995,9 +1995,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c7e54bb9b8f3644296d5fcd4364437a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cam: {fileID: 123830385}
   foodPellets: {fileID: 11400000, guid: ec28b915140fa194182d6cf0835ab35e, type: 2}
   brick: {fileID: 11400000, guid: 77526277659540d48bf575f30c8264a4, type: 2}
   banana: {fileID: 11400000, guid: e7abeeb40d3c27f47aec7518a9f9f1af, type: 2}
+  throwableSurface:
+    serializedVersion: 2
+    m_Bits: 0
+  targetingVisual: {fileID: 4937423}
+  AOECircleCenterLoc: {fileID: 802432850}
+  AOECircleTransform: {fileID: 367817517}
+  AOECircle: {fileID: 367817516}
+  AOECircleClampingBounds:
+    m_Center: {x: 0, y: 0, z: -14}
+    m_Extent: {x: 999, y: 0, z: 999}
+  throwStartLoc: {fileID: 463445567}
+  throwArc: {fileID: 541395025}
+  throwAirTime: 1.6
   throwableButtons:
   - {fileID: 1029654223}
   - {fileID: 1634273404}
@@ -2047,17 +2061,6 @@ MonoBehaviour:
   - {fileID: 1222915060}
   - {fileID: 1147529846}
   - {fileID: 1812850100}
-  cam: {fileID: 123830385}
-  targetingVisual: {fileID: 4937423}
-  AOECircleCenterLoc: {fileID: 802432850}
-  AOECircleTransform: {fileID: 367817517}
-  AOECircle: {fileID: 367817516}
-  AOECircleClampingBounds:
-    m_Center: {x: 0, y: 0, z: -14}
-    m_Extent: {x: 999, y: 0, z: 999}
-  throwStartLoc: {fileID: 463445567}
-  throwArc: {fileID: 541395025}
-  throwAirTime: 1.6
 --- !u!4 &582316328
 Transform:
   m_ObjectHideFlags: 0
@@ -5119,6 +5122,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2717588689793857556, guid: d5e7288bac414d64a9e57a6e0f0ee61d,
         type: 3}
+    - target: {fileID: 8351525287445587577, guid: 37158660d0961074296c05f5defc0b43,
+        type: 3}
+      propertyPath: maxIdleTime
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8351525287445587577, guid: 37158660d0961074296c05f5defc0b43,
+        type: 3}
+      propertyPath: idleWalkDistance
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 8351525287445587577, guid: 37158660d0961074296c05f5defc0b43,
         type: 3}
       propertyPath: chanceToProjectilePoop

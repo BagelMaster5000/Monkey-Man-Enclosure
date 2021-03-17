@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Monkey : Primate
 {
-    [SerializeField] private float baseAwakeAmount = 0.1f;
-    [SerializeField] private float awakeRate = 1f;
-    [SerializeField] private float distanceModifier = 2f;
+    [Header("Monkey")]
+    private float awakeRate = 1f;
+    private float closestAwakeAmount = 1f;
 
 
     [SerializeField, Range(0, 11), Tooltip("Must get at or above this number for the monkey to launch poop.\n(0 = Always projectile poop, 11 = Never projectile poop)")]
@@ -24,7 +24,17 @@ public class Monkey : Primate
     {
         if(Random.Range(1,11) >= chanceToProjectilePoop)
         {
-            //TODO
+            //TODO choose to launch at camera? or launch in random direction
+
+            //TODO Turn the Monkey over???
+
+            //Spawn a piece of poop and get its rigidbody
+            Rigidbody body = Instantiate(poopPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+
+            //Launch the poop
+            Vector3 randomPos = Random.insideUnitSphere;
+            randomPos.y = 0;
+            body.AddExplosionForce(50f, body.transform.position + Vector3.down + randomPos, 5, 10f, ForceMode.Acceleration);
         }
         else
         {
@@ -34,11 +44,38 @@ public class Monkey : Primate
     }
 
 
-    private void OnTriggerStay(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Man")
         {
-            //TODO make more awake
+            //Make the man more awake
+
+            StartCoroutine(MakeManAwake());
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.tag == "Man")
+        {
+            //Stop making the man awake
+
+            StopCoroutine(MakeManAwake());
+        }
+    }
+
+    private IEnumerator MakeManAwake()
+    {
+        while(true)
+        {
+            //Wait fo the awake rate before making the man awake
+            yield return new WaitForSeconds(awakeRate);
+
+            //Get the distance between man and monkey
+            float distance = Vector3.Distance(man.transform.position, transform.position);
+
+            //Base awake amount times how far away
+            man.ModifySleep(Mathf.Min(closestAwakeAmount / distance, closestAwakeAmount));
         }
     }
 

@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Man : Primate
 {
+    [Header("Man")]
     //UI
     [SerializeField] private Image hungerIcon;
     [SerializeField] private Image awakeBar;
@@ -16,6 +17,10 @@ public class Man : Primate
 
     [SerializeField] private float maxAwakeLevel = 100;
     private float awakeLevel = 0;
+    private float previousAwakeLevel = 0;
+    [SerializeField, Range(1, 10), Tooltip("How much time needs to pass after losing sleep before the man regains sleep")]
+    private float regainSleepCooldown;
+    private float time = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +31,19 @@ public class Man : Primate
         awakeBar.fillAmount = awakeLevel / maxAwakeLevel;
     }
 
+    private void Update()
+    {
+        if (previousAwakeLevel == awakeLevel)
+        {
+            time += Time.deltaTime;
+            if (time > regainSleepCooldown)
+                ModifySleep(-Time.deltaTime);
+        }
+        else
+            time = 0;
 
+        previousAwakeLevel = awakeLevel;
+    }
 
     public void ModifyHunger(float amount)
     {
@@ -40,7 +57,8 @@ public class Man : Primate
         //If the Man starves
         if(hungerLevel <= 0)
         {
-            //TODO GameController.Lose();
+            //Gameover
+            GameController.instance.Lose();
         }
     }
 
@@ -49,14 +67,15 @@ public class Man : Primate
         //Modify how awake the man is. Add or subtract.
         //Update the man's awake UI bar
 
-        awakeLevel += Mathf.Max(0, awakeLevel + amount);
+        awakeLevel = Mathf.Max(0, awakeLevel + amount);
 
         awakeBar.fillAmount = awakeLevel / maxAwakeLevel;
 
         //If the Man awakens
         if (awakeLevel >= maxAwakeLevel)
         {
-            //TODO GameController.Lose();
+            //Gameover
+            GameController.instance.Lose();
         }
     }
 }
