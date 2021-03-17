@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class ThrowableManager : MonoBehaviour
 {
-    [SerializeField] Throwable foodPellets;
-    [SerializeField] Throwable brick;
-    [SerializeField] Throwable banana;
+    [SerializeField] ThrowableSO foodPellets;
+    [SerializeField] ThrowableSO brick;
+    [SerializeField] ThrowableSO banana;
 
     [SerializeField] Toggle[] throwableButtons;
     int curThrowableSelection; // 0 Food Pellet, 1 Brick, 2 Banana
