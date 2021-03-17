@@ -4,14 +4,17 @@ public class GameController : MonoBehaviour
 {
     public static GameController instance;
 
+    [Header("General")]
     [SerializeField] LevelSO curLevel;
     public enum GameState { MAINVIEW, SHOP, GAMEOVER, PAUSED };
     public GameState curGameState;
 
-    // Shop Menu
+    //[Header("Shop Menu")]
+    //[SerializeField] ShopMenu shopMenuController;
 
     // Win or Lose Menu
 
+    [Header("Monkey Generation")]
     [SerializeField] GameObject monkeyPrefab;
     Monkey[] monkeys;
     [SerializeField] Transform manTransform;
@@ -77,6 +80,15 @@ public class GameController : MonoBehaviour
         }
     }
     #endregion
+
+    public void ToggleShopVisibility()
+    {
+        if (curGameState == GameState.MAINVIEW)
+            curGameState = GameState.SHOP;
+        else if (curGameState == GameState.SHOP)
+            curGameState = GameState.MAINVIEW;
+
+    }
 
     public void Whistle()
     {
