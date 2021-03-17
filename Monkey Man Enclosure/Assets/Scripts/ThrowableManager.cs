@@ -5,13 +5,38 @@ using UnityEngine.UI;
 
 public class ThrowableManager : MonoBehaviour
 {
+    [SerializeField] Camera cam;
+
+    [Header("Scriptable Objects")]
     [SerializeField] ThrowableSO foodPellets;
     [SerializeField] ThrowableSO brick;
     [SerializeField] ThrowableSO banana;
 
+    [Header("Targeting")]
+    [SerializeField] LayerMask throwableSurface;
+    bool tracking;
+    [SerializeField] GameObject targetingVisual;
+
+    [Space(10)]
+    [SerializeField] Transform AOECircleCenterLoc;
+    [SerializeField] Transform AOECircleTransform;
+    [SerializeField] LineRenderer AOECircle;
+    int pointsInAOECircle = 30;
+    float AOECircleRotationSpeed = 15;
+    [SerializeField] Bounds AOECircleClampingBounds;
+
+    [Space(10)]
+    [SerializeField] Transform throwStartLoc;
+    [SerializeField] LineRenderer throwArc;
+    [SerializeField] float throwAirTime = 2;
+    int pointsInThrowArc = 20;
+    // [SerializeField] float throwHeight = 2;
+
+    [Header("Buttons")]
     [SerializeField] Toggle[] throwableButtons;
     int curThrowableSelection; // 0 Food Pellet, 1 Brick, 2 Banana
 
+    [Header("Pools")]
     [SerializeField] GameObject[] foodPelletsPool;
     int numFoodPelletsToThrow = 5;
     int foodPelletsPoolIteration = 0;
@@ -20,25 +45,6 @@ public class ThrowableManager : MonoBehaviour
     int bricksPoolIteration = 0;
     [SerializeField] GameObject[] bananasPool;
     int bananasPoolIteration = 0;
-
-    bool tracking;
-
-    [SerializeField] Camera cam;
-
-    [SerializeField] GameObject targetingVisual;
-
-    [SerializeField] Transform AOECircleCenterLoc;
-    [SerializeField] Transform AOECircleTransform;
-    [SerializeField] LineRenderer AOECircle;
-    int pointsInAOECircle = 30;
-    float AOECircleRotationSpeed = 15;
-    [SerializeField] Bounds AOECircleClampingBounds;
-
-    [SerializeField] Transform throwStartLoc;
-    [SerializeField] LineRenderer throwArc;
-    [SerializeField] float throwAirTime = 2;
-    int pointsInThrowArc = 20;
-    // [SerializeField] float throwHeight = 2;
 
     private void Start()
     {
@@ -86,7 +92,7 @@ public class ThrowableManager : MonoBehaviour
             // Raycasting for throw-to position
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hit;
-            if (Physics.Raycast(ray, out hit))
+            if (Physics.Raycast(ray, out hit, 999, throwableSurface))
             {
                 SetAOECenterPos(hit);
                 RotateAOECircle();
