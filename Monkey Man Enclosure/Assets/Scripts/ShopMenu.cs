@@ -12,10 +12,19 @@ public class ShopMenu : MonoBehaviour
     float brickPrice = 9;
     float bananaPrice = 8;
 
-    [Header("Pellet Animation")]
-    [SerializeField] GameObject[] pellets;
+    [Header("Pellet Animations")]
+    [SerializeField] GameObject[] pelletsPool;
+    int pelletIterator = 0;
     const int NUM_PELLETS_TO_DROP = 5;
     const float DELAY_BETWEEN_DROPS = 0.1f;
+    const float PELLET_DROP_POSITION_VARIABILITY = 50;
+
+    [Header("Dispenser Animation")]
+    [SerializeField] Animator dispenserAnimator;
+    [SerializeField] Transform dispenserHolder;
+    Vector3 startDispenserPosition;
+    bool dispenserRumbling;
+    const float DISPENSER_RUMBLE_AMT = 15;
 
     private void Start()
     {
@@ -23,6 +32,8 @@ public class ShopMenu : MonoBehaviour
 
         shopMenu.transform.localPosition = Vector3.right * 1999;
         shopMenu.gameObject.SetActive(false);
+
+        startDispenserPosition = dispenserHolder.localPosition;
     }
 
     #region In and Out Animation
@@ -32,6 +43,8 @@ public class ShopMenu : MonoBehaviour
         {
             StopAllCoroutines();
             StartCoroutine(AnimateIn());
+
+            DeactivateAllPellets();
         }
         else if (GameController.instance.curGameState != GameController.GameState.SHOP && visible)
         {
@@ -87,7 +100,10 @@ public class ShopMenu : MonoBehaviour
     #region Purchasing
     public void AttemptBuyFoodPellets()
     {
-        // TODO
+        dispenserAnimator.SetTrigger("Crank");
+        StopAllCoroutines();
+        StartCoroutine(DispenserRumbling());
+        StartCoroutine(AnimateDroppingFoodPellets());
     }
 
     public void AttemptBuyBrick()
@@ -100,31 +116,70 @@ public class ShopMenu : MonoBehaviour
         // TODO
     }
 
-    void AnimateDroppingFoodPellets()
+    IEnumerator AnimateDroppingFoodPellets()
     {
         // TODO
-        //for (int x = 0; x < numFoodPelletsToThrow; x++)
-        //{
-        //    foodPelletsPool[foodPelletsPoolIteration].SetActive(true);
-        //    itemToThrow = foodPelletsPool[foodPelletsPoolIteration].GetComponent<Rigidbody>();
-        //    itemToThrow.transform.position =
-        //        throwStartLoc.position +
-        //        new Vector3(
-        //            Random.Range(-throwRandomizor, throwRandomizor),
-        //            Random.Range(-throwRandomizor, throwRandomizor),
-        //            Random.Range(-throwRandomizor, throwRandomizor));
-        //    itemToThrow.useGravity = true;
-        //    itemToThrow.velocity =
-        //        new Vector3(initialXVelocity, initialYVelocity, initialZVelocity) +
-        //        new Vector3(
-        //            Random.Range(-throwRandomizor, throwRandomizor),
-        //            Random.Range(-throwRandomizor, throwRandomizor),
-        //            Random.Range(-throwRandomizor, throwRandomizor));
 
-        //    foodPelletsPoolIteration++;
-        //    if (foodPelletsPoolIteration >= foodPelletsPool.Length)
-        //        foodPelletsPoolIteration = 0;
-        //}
+        print("Animating");
+
+        int curPellet = pelletIterator;
+        pelletIterator += NUM_PELLETS_TO_DROP;
+        if (pelletIterator >= pelletsPool.Length)
+            pelletIterator -= pelletsPool.Length;
+        for (int n = 0; n < NUM_PELLETS_TO_DROP; n++)
+        {
+            print("Pellet #" + n);
+            pelletsPool[curPellet].SetActive(false);
+            yield return null;
+            pelletsPool[curPellet].SetActive(true);
+            pelletsPool[curPellet].transform.localPosition =
+                new Vector3(
+                    Random.Range(-PELLET_DROP_POSITION_VARIABILITY, PELLET_DROP_POSITION_VARIABILITY),
+                    Random.Range(-PELLET_DROP_POSITION_VARIABILITY, PELLET_DROP_POSITION_VARIABILITY),
+                    Random.Range(-PELLET_DROP_POSITION_VARIABILITY, PELLET_DROP_POSITION_VARIABILITY));
+
+            curPellet++;
+            if (curPellet >= pelletsPool.Length)
+                curPellet = 0;
+
+            yield return new WaitForSeconds(DELAY_BETWEEN_DROPS);
+        }
+
+        yield return new WaitForSeconds(0.1f);
+
+        dispenserRumbling = false;
+    }
+
+    void DeactivateAllPellets()
+    {
+        foreach (GameObject pelletObject in pelletsPool)
+            pelletObject.SetActive(false);
+    }
+
+    IEnumerator DispenserRumbling()
+    {
+        dispenserRumbling = true;
+
+        while (dispenserRumbling)
+        {
+            dispenserHolder.localPosition = startDispenserPosition +
+                new Vector3(
+                    Random.Range(-DISPENSER_RUMBLE_AMT, DISPENSER_RUMBLE_AMT),
+                    Random.Range(-DISPENSER_RUMBLE_AMT, DISPENSER_RUMBLE_AMT),
+                    Random.Range(-DISPENSER_RUMBLE_AMT, DISPENSER_RUMBLE_AMT));
+            yield return null;
+        }
+        while ((dispenserHolder.localPosition - startDispenserPosition).magnitude > 0.01f)
+        {
+            dispenserHolder.localPosition =
+                new Vector3(
+                    Mathf.Lerp(dispenserHolder.localPosition.x, startDispenserPosition.x, 0.2f),
+                    Mathf.Lerp(dispenserHolder.localPosition.y, startDispenserPosition.y, 0.2f),
+                    Mathf.Lerp(dispenserHolder.localPosition.z, startDispenserPosition.z, 0.2f));
+            yield return null;
+        }
+
+        dispenserHolder.localPosition = startDispenserPosition;
     }
     #endregion
 }
