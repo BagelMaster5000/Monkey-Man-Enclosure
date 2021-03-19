@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 2026472565911791266}
   - component: {fileID: 2026472565911791264}
   - component: {fileID: 2026472565911791269}
+  - component: {fileID: 6339629913129163417}
   m_Layer: 0
   m_Name: Monkey
-  m_TagString: Untagged
+  m_TagString: Monkey
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,13 +49,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  poopPrefab: {fileID: 0}
+  poopPrefab: {fileID: 2717588689793857556, guid: d5e7288bac414d64a9e57a6e0f0ee61d,
+    type: 3}
+  maxIdleTime: 1
   eatingTime: 3
-  idleWalkDistance: 1
-  baseAwakeAmount: 0.1
-  awakeRate: 1
-  distanceModifier: 2
-  chanceToProjectilePoop: 3
+  idleWalkDistance: 4
+  chanceToProjectilePoop: 11
 --- !u!195 &2026472565911791266
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -69,7 +69,7 @@ NavMeshAgent:
   m_Acceleration: 15
   avoidancePriority: 50
   m_AngularSpeed: 999
-  m_StoppingDistance: 0.1
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -107,6 +107,19 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: 0, y: 0.75, z: 0}
+--- !u!135 &6339629913129163417
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2026472565911791268}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &2026472564354483617
 PrefabInstance:
   m_ObjectHideFlags: 0

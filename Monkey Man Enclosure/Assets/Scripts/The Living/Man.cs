@@ -7,42 +7,60 @@ public class Man : Primate
 {
     [Header("Man")]
     //UI
+    [SerializeField] private GameObject canvas;
     [SerializeField] private Image hungerIcon;
     [SerializeField] private Image awakeBar;
+    private Vector3 targetPostition;
 
     //Man
     [SerializeField] private float maxHungerLevel = 100;
     [SerializeField] private float hungerNotificationLevel = 30;
     private float hungerLevel;
 
-    [SerializeField] private float maxAwakeLevel = 100;
-    private float awakeLevel = 0;
+    [SerializeField] private float maxAwakeLevel = 100; 
+    public float awakeLevel = 0;
     private float previousAwakeLevel = 0;
     [SerializeField, Range(1, 10), Tooltip("How much time needs to pass after losing sleep before the man regains sleep")]
     private float regainSleepCooldown;
+    private bool regainingSleep = false;
     private float time = 0;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
         hungerLevel = maxHungerLevel * 0.8f;
         hungerIcon.gameObject.SetActive(false);
 
-        awakeBar.fillAmount = awakeLevel / maxAwakeLevel;
+        awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
+
+        base.Start();
     }
 
-    private void Update()
+    protected override void Update()
     {
-        if (previousAwakeLevel == awakeLevel)
+        //Keep the man's UI pointed at the camera
+        targetPostition = new Vector3(canvas.transform.position.x,
+                                        Camera.main.transform.position.y,
+                                        Camera.main.transform.position.z);
+        canvas.transform.LookAt(targetPostition); //Make the MonkeyMan's UI canvas look at the camera
+
+
+        //ReSleep timer
+        if (previousAwakeLevel == awakeLevel || regainingSleep == true)
         {
             time += Time.deltaTime;
             if (time > regainSleepCooldown)
-                ModifySleep(-Time.deltaTime);
+            {
+                regainingSleep = true;
+                ModifySleep(-5);
+            }
         }
         else
             time = 0;
 
         previousAwakeLevel = awakeLevel;
+
+        base.Update();
     }
 
     public void ModifyHunger(float amount)
@@ -69,7 +87,10 @@ public class Man : Primate
 
         awakeLevel = Mathf.Max(0, awakeLevel + amount);
 
-        awakeBar.fillAmount = awakeLevel / maxAwakeLevel;
+        awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
+
+        if (amount > 0)
+            regainingSleep = false;
 
         //If the Man awakens
         if (awakeLevel >= maxAwakeLevel)

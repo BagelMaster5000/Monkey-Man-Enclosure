@@ -21,7 +21,7 @@ public class Primate : MonoBehaviour
 
 
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         agent = GetComponent<NavMeshAgent>();
 
@@ -29,7 +29,7 @@ public class Primate : MonoBehaviour
         agent.destination = transform.position;
     }
 
-    private void Update()
+    protected virtual void Update()
     {
         //If we aren't sitting still and have reached the target...
         if (state != PrimateState.IdleMotionless && agent.remainingDistance < agent.stoppingDistance)

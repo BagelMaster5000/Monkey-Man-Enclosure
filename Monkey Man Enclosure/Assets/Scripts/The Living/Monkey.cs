@@ -14,9 +14,9 @@ public class Monkey : Primate
     private Man man;
 
     // Start is called before the first frame update
-    private void OnEnable()
+    protected void OnEnable()
     {
-        man = FindObjectOfType<Man>();
+        man = GameObject.FindGameObjectWithTag("MonkeyMan").GetComponent<Man>(); 
     }
 
 
@@ -44,19 +44,22 @@ public class Monkey : Primate
     }
 
 
-    private void OnTriggerEnter(Collider other)
+    protected void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Man")
+        if(other.tag == "MonkeyMan")
         {
             //Make the man more awake
+
+            if(man == null)
+                man = GameObject.FindGameObjectWithTag("MonkeyMan").GetComponent<Man>();
 
             StartCoroutine(MakeManAwake());
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    protected void OnTriggerExit(Collider other)
     {
-        if (other.tag == "Man")
+        if (other.tag == "MonkeyMan")
         {
             //Stop making the man awake
 
@@ -72,6 +75,7 @@ public class Monkey : Primate
             yield return new WaitForSeconds(awakeRate);
 
             //Get the distance between man and monkey
+            Debug.Log(man == null);
             float distance = Vector3.Distance(man.transform.position, transform.position);
 
             //Base awake amount times how far away
