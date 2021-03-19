@@ -120,7 +120,7 @@ NavMeshSettings:
     accuratePlacement: 0
     debug:
       m_Flags: 0
-  m_NavMeshData: {fileID: 0}
+  m_NavMeshData: {fileID: 23800000, guid: d7723d502832a384c97edf0a737b3a25, type: 2}
 --- !u!1001 &3234222
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7120,11 +7120,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7514993827040756516, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7514993827040756516, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: -7232562004199717429, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1d566df29fb03e941a763f7cd995ea82, type: 2}
+    - target: {fileID: -7225150988748179822, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
+    - target: {fileID: -5770028441575988347, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: -4354148459536686155, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -7135,11 +7155,26 @@ PrefabInstance:
       propertyPath: m_Name
       value: enclosure
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 2652081797513267775, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 952a3444566d63443988003dee72381c, type: 2}
+    - target: {fileID: 7723773159938600736, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_NavMeshLayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7723773159938600736, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
+        type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 8981542783143579925, guid: c870b8cb0d06d3a429e5c37aebcc4e38,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
