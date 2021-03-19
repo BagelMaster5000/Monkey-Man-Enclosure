@@ -47,7 +47,6 @@ public class NextSceneFader : MonoBehaviour
         DontDestroyOnLoad(this.gameObject);
 
         int randomColorCombo = Random.Range(0, 5);
-        print(colorCombos[randomColorCombo, 0]);
         bg.color = colorCombos[randomColorCombo, 0];
         bananaGraphic.color = colorCombos[randomColorCombo, 1];
 
