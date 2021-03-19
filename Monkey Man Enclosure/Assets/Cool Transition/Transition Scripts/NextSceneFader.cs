@@ -8,6 +8,8 @@ public class NextSceneFader : MonoBehaviour
     public static NextSceneFader instance;
     string nextScene;
 
+    bool fading;
+
     private void Awake()
     {
         if (instance == null)
@@ -17,8 +19,12 @@ public class NextSceneFader : MonoBehaviour
             Destroy(this.gameObject);
             return;
         }
+    }
 
-        SceneManager.sceneLoaded += SetParent;
+    private void LateUpdate()
+    {
+        if (fading)
+            SetParent();
     }
 
     /* Starts fade to next scene
@@ -29,9 +35,11 @@ public class NextSceneFader : MonoBehaviour
     {
         transform.parent = null;
         DontDestroyOnLoad(this.gameObject);
-        // FIXME Stop BG music
 
-        //StartCoroutine(WaitToParent());
+        if (stopMusic && MusicPlayer.instance != null)
+            MusicPlayer.instance.FadeOut();
+
+        fading = true;
 
         // Starts transition animation
         this.nextScene = nextScene;
@@ -52,7 +60,10 @@ public class NextSceneFader : MonoBehaviour
             return;
         }
 
-        // FIXME Stop BG music
+        if (stopMusic && MusicPlayer.instance != null)
+            MusicPlayer.instance.FadeOut();
+
+        fading = true;
 
         // Below code is stolen from Giora-Guttsait. Thank you and incredibly dumb that this is how you get the scene name of the next scene.
         string path = SceneUtility.GetScenePathByBuildIndex(SceneManager.GetActiveScene().buildIndex + 1);
@@ -82,19 +93,20 @@ public class NextSceneFader : MonoBehaviour
         GetComponent<Animator>().SetBool("Dark", false);
         SceneManager.LoadScene(nextScene);
 
+        StartCoroutine(EndFadingAfterSeconds(1));
+    }
+
+    void SetParent()
+    {
+        Transform camTransform = Camera.main.transform;
+        transform.localPosition = camTransform.position + new Vector3(0, 0, 1);
+        transform.rotation = camTransform.rotation;
         //StartCoroutine(WaitToParent());
     }
 
-    void SetParent(Scene scene, LoadSceneMode mode)
+    IEnumerator EndFadingAfterSeconds(float seconds)
     {
-        StartCoroutine(WaitToParent());
-    }
-
-    IEnumerator WaitToParent()
-    {
-        yield return new WaitForEndOfFrame();
-        transform.parent = Camera.main.transform;
-        transform.localPosition = new Vector3(0, 0, 1);
-        transform.rotation = transform.parent.rotation;
+        yield return new WaitForSeconds(seconds);
+        fading = false;
     }
 }

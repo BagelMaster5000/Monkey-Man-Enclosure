@@ -68,6 +68,11 @@ public class PauseMenu : MonoBehaviour
         GameController.instance.curGameState = GameController.GameState.MAINVIEW;
     }
 
+    public void RestartGame()
+    {
+        NextSceneFader.instance.FadeToNextScene("Main Scene", false);
+    }
+
     public void ExitGame()
     {
         NextSceneFader.instance.FadeToNextScene("Title Scene", true);
