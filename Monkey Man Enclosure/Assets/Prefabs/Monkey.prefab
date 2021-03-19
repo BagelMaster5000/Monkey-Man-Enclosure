@@ -33,8 +33,6 @@ GameObject:
   - component: {fileID: 2026472565911791264}
   - component: {fileID: 2026472565911791269}
   - component: {fileID: 6339629913129163417}
-  - component: {fileID: 703385240108084757}
-  - component: {fileID: 8231655789287432910}
   m_Layer: 0
   m_Name: Monkey
   m_TagString: Monkey
@@ -66,7 +64,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2026472565911791268}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21914063009fde948bd812b8ed15719b, type: 3}
   m_Name: 
@@ -143,37 +141,6 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 2
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &703385240108084757
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026472565911791268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c71d7f2a3635ac748a8365fafe9e3d76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  state: 0
-  poopPrefab: {fileID: 919132149155446097, guid: 7061f22c79df3f541981ffaad67f6726,
-    type: 3}
-  maxIdleTime: 0
-  eatingTime: 3
-  idleWalkDistance: 4
-  chanceToProjectilePoop: 11
---- !u!114 &8231655789287432910
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2026472565911791268}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54984910fe2a69145b3e92dd1a1c6369, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3220630011932575475
 GameObject:
   m_ObjectHideFlags: 0

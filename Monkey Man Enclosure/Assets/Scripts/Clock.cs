@@ -4,18 +4,27 @@ using UnityEngine;
 
 public class Clock : MonoBehaviour
 {
-    [SerializeField] private float hourDuration;                        //The amount of real time that needs to pass for an hour in-game to pass
-    [SerializeField] private float disruptionFrequency;                 //How frequent (real time) visitor disruption occur
-    [SerializeField] private float hungerRate;                          //How frequent (real time) the Man loses hunger
-    [SerializeField] private float poopRate;                            //How frequent (real time) primates will poop
+    [Header("Clock")]
+    [SerializeField, Tooltip("In seconds")] private float hourDuration;                        //The amount of real time that needs to pass for an hour in-game to pass
+    private float disruptionFrequency;                                      //How frequent (real time) visitor disruption occur
+    [SerializeField] private float hungerRate;                              //How frequent (real time) the Man loses hunger
+    [SerializeField, Tooltip("Will be negative")] private float hungerAmount;                        //How much hunger the man loses per the rate
+    [SerializeField] private float poopRate;                                //How frequent (real time) primates will poop
 
-    private float time = 0f;
+    [Header("Dev Only")]
+    public float time = 0f;
     private Man man;
     private Primate[] primates;
 
     // Start is called before the first frame update
     void Start()
     {
+        //Set Disruption Frequency
+        disruptionFrequency = 100 * GameController.instance.curLevel.disruptionFrequency;
+
+        if (hungerAmount > 0)
+            hungerAmount *= -1;
+
         man = FindObjectOfType<Man>();
         primates = FindObjectsOfType<Primate>();
     }
@@ -23,12 +32,16 @@ public class Clock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(true)//TODO GameController.curGameState == GameState.MainView)   //Countdown only while the player is actively managing the monkey exhibit
+        if(GameController.instance.curGameState == GameController.GameState.MAINVIEW)   //Countdown only while the player is actively managing the monkey exhibit
         {
             //Check for the hour
             if(time >= hourDuration)
             {
                 PlayerInventory.instance.RecieveWage();     //Give the player more money
+
+                //TODO Check to win game?
+                if (false)
+                    GameController.instance.Win();
 
                 hourDuration += hourDuration;
             }
@@ -44,7 +57,7 @@ public class Clock : MonoBehaviour
             //Check if hunger
             if(time >= hungerRate)
             {
-                man.ModifyHunger(1f);   //TODO consider changing this?
+                man.ModifyHunger(hungerAmount);
 
                 hungerRate += hungerRate;
             }
@@ -69,8 +82,10 @@ public class Clock : MonoBehaviour
 
     private void MakePrimatePoop()
     {
+        //Choose a random primate
         Primate pooper = primates[Random.Range(0, primates.Length)];
 
-        //TODO
+        //Make them poop
+        pooper.Poop();
     }
 }

@@ -76,7 +76,6 @@ public class Monkey : Primate
                 yield return new WaitForSeconds(awakeRate);
 
                 //Get the distance between man and monkey
-                Debug.Log(man == null);
                 float distance = Vector3.Distance(man.transform.position, transform.position);
 
                 //Base awake amount times how far away

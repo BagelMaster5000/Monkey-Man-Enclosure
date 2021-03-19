@@ -60,8 +60,9 @@ MonoBehaviour:
   maxHungerLevel: 100
   hungerNotificationLevel: 30
   maxAwakeLevel: 100
+  regainSleepCooldown: 5
+  hungerLevel: 0
   awakeLevel: 0
-  regainSleepCooldown: 1
 --- !u!195 &2678368497211731033
 NavMeshAgent:
   m_ObjectHideFlags: 0

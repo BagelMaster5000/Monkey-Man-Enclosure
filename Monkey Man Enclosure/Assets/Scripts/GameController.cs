@@ -5,7 +5,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     [Header("General")]
-    [SerializeField] LevelSO curLevel;
+    public LevelSO curLevel;
     public enum GameState { MAINVIEW, SHOP, GAMEOVER, PAUSED };
     public GameState curGameState;
 

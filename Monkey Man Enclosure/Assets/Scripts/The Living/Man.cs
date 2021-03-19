@@ -15,15 +15,18 @@ public class Man : Primate
     //Man
     [SerializeField] private float maxHungerLevel = 100;
     [SerializeField] private float hungerNotificationLevel = 30;
-    private float hungerLevel;
 
     [SerializeField] private float maxAwakeLevel = 100; 
-    public float awakeLevel = 0;
     private float previousAwakeLevel = 0;
     [SerializeField, Range(1, 10), Tooltip("How much time needs to pass after losing sleep before the man regains sleep")]
     private float regainSleepCooldown;
     private bool regainingSleep = false;
     private float time = 0;
+
+    [Header("Dev Only")]
+    public float hungerLevel = 0;
+    public float awakeLevel = 0;
+
 
     // Start is called before the first frame update
     protected override void Start()
@@ -70,7 +73,7 @@ public class Man : Primate
 
         hungerLevel = Mathf.Min(hungerLevel + amount, maxHungerLevel);
 
-        hungerIcon.gameObject.SetActive(hungerLevel > hungerNotificationLevel);
+        hungerIcon.gameObject.SetActive(hungerLevel <= hungerNotificationLevel);
 
         //If the Man starves
         if(hungerLevel <= 0)
