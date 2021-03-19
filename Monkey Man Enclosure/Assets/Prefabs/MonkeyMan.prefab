@@ -60,6 +60,7 @@ MonoBehaviour:
   maxHungerLevel: 100
   hungerNotificationLevel: 30
   maxAwakeLevel: 100
+  awakeLevel: 0
   regainSleepCooldown: 1
 --- !u!195 &2678368497211731033
 NavMeshAgent:
@@ -386,7 +387,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 9b1b712bfb92793469d0cc60de893298,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.1
+      value: 0.037
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 9b1b712bfb92793469d0cc60de893298,
         type: 3}

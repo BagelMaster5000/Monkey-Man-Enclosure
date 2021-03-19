@@ -2,8 +2,22 @@ fileFormatVersion: 2
 guid: 38d4342e4850d4c4593dd501394e1ae2
 ModelImporter:
   serializedVersion: 19301
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      74: -2924151648911815570
+    second: _Monkee.Rig|Monkee-Eating
+  - first:
+      74: 2677981749757551177
+    second: _Monkee.Rig|Monkee-Walking
+  - first:
+      74: -1404996964927060998
+    second: _Monkee.Rig|Monkee.Idle
   externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: baltic.sea
+    second: {fileID: 2100000, guid: a844a151ecd265f42bfdbce791778a11, type: 2}
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
@@ -22,8 +36,23 @@ ModelImporter:
   - first:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
+      name: geraldine
+    second: {fileID: 2100000, guid: 46e5b76572f3f33479a988f8099f68f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: melon
+    second: {fileID: 2100000, guid: c4381a6d8bf060c45bb9e818d6cca6b3, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
       name: skin
     second: {fileID: 2100000, guid: 46e5b76572f3f33479a988f8099f68f9, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: wedgewood
+    second: {fileID: 2100000, guid: e796e7f09c61e5748be4f1ae240f466d, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
