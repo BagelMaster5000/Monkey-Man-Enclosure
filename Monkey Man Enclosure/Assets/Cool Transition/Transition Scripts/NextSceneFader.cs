@@ -10,6 +10,16 @@ public class NextSceneFader : MonoBehaviour
 
     bool fading;
 
+    Color[,] colorCombos = {
+        { GlobalColors.melon, GlobalColors.wedgewood },
+        { GlobalColors.geraldine, GlobalColors.oxfordBlue },
+        { GlobalColors.wedgewood, GlobalColors.balticSea },
+        { GlobalColors.oxfordBlue, GlobalColors.melon },
+        { GlobalColors.balticSea, GlobalColors.geraldine },
+    };
+    [SerializeField] SpriteRenderer bg;
+    [SerializeField] SpriteRenderer bananaGraphic;
+
     private void Awake()
     {
         if (instance == null)
@@ -36,6 +46,11 @@ public class NextSceneFader : MonoBehaviour
         transform.parent = null;
         DontDestroyOnLoad(this.gameObject);
 
+        int randomColorCombo = Random.Range(0, 5);
+        print(colorCombos[randomColorCombo, 0]);
+        bg.color = colorCombos[randomColorCombo, 0];
+        bananaGraphic.color = colorCombos[randomColorCombo, 1];
+
         if (stopMusic && MusicPlayer.instance != null)
             MusicPlayer.instance.FadeOut();
 
@@ -59,6 +74,10 @@ public class NextSceneFader : MonoBehaviour
             FadeToNextScene(SceneManager.GetActiveScene().name, false);
             return;
         }
+
+        int randomColorCombo = Random.Range(0, 5);
+        bg.color = colorCombos[randomColorCombo, 0];
+        bananaGraphic.color = colorCombos[randomColorCombo, 1];
 
         if (stopMusic && MusicPlayer.instance != null)
             MusicPlayer.instance.FadeOut();
@@ -99,7 +118,7 @@ public class NextSceneFader : MonoBehaviour
     void SetParent()
     {
         Transform camTransform = Camera.main.transform;
-        transform.localPosition = camTransform.position + new Vector3(0, 0, 1);
+        transform.position = new Vector3(0, 16.91447f, -26.9171f);
         transform.rotation = camTransform.rotation;
         //StartCoroutine(WaitToParent());
     }
