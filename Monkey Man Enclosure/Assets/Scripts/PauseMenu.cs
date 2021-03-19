@@ -23,8 +23,11 @@ public class PauseMenu : MonoBehaviour
         }
         else if (GameController.instance.curGameState != GameController.GameState.PAUSED && visible)
         {
-            StopAllCoroutines();
-            StartCoroutine(AnimateOut());
+            //StopAllCoroutines();
+            //StartCoroutine(AnimateOut());
+
+            visible = false;
+            pauseMenu.gameObject.SetActive(false);
         }
     }
 
@@ -44,20 +47,20 @@ public class PauseMenu : MonoBehaviour
         pauseMenu.transform.localScale = Vector3.one;
     }
 
-    IEnumerator AnimateOut()
-    {
-        visible = false;
+    //IEnumerator AnimateOut()
+    //{
+    //    visible = false;
 
-        // Scale out
-        float curScale = 1;
-        while (curScale > 0.91f)
-        {
-            pauseMenu.transform.localScale = Vector3.one * curScale;
-            curScale -= 0.02f;
-            yield return new WaitForFixedUpdate();
-        }
-        pauseMenu.gameObject.SetActive(false);
-    }
+    //    // Scale out
+    //    float curScale = 1;
+    //    while (curScale > 0.91f)
+    //    {
+    //        pauseMenu.transform.localScale = Vector3.one * curScale;
+    //        curScale -= 0.02f;
+    //        yield return new WaitForFixedUpdate();
+    //    }
+    //    pauseMenu.gameObject.SetActive(false);
+    //}
     #endregion
 
     public void ContinueGame()
@@ -67,6 +70,6 @@ public class PauseMenu : MonoBehaviour
 
     public void ExitGame()
     {
-
+        NextSceneFader.instance.FadeToNextScene("Title Scene", true);
     }
 }
