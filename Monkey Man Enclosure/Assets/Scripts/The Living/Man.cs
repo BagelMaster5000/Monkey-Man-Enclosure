@@ -52,7 +52,7 @@ public class Man : Primate
             if (time > regainSleepCooldown)
             {
                 regainingSleep = true;
-                ModifySleep(-5);
+                ModifySleep(-5*Time.deltaTime);
             }
         }
         else

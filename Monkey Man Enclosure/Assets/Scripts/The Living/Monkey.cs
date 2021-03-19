@@ -6,19 +6,23 @@ public class Monkey : Primate
 {
     [Header("Monkey")]
     private float awakeRate = 1f;
-    private float closestAwakeAmount = 1f;
+    private float closestAwakeAmount = 5f;
+    private bool nearMan = false;
 
 
     [SerializeField, Range(0, 11), Tooltip("Must get at or above this number for the monkey to launch poop.\n(0 = Always projectile poop, 11 = Never projectile poop)")]
     private int chanceToProjectilePoop = 3;
     private Man man;
 
-    // Start is called before the first frame update
-    protected void OnEnable()
+    protected override void Start()
     {
-        man = GameObject.FindGameObjectWithTag("MonkeyMan").GetComponent<Man>(); 
-    }
+        if (man == null)
+            man = GameObject.FindGameObjectWithTag("MonkeyMan").GetComponent<Man>();
 
+        StartCoroutine(MakeManAwake());
+
+        base.Start();
+    }
 
     public override void Poop()
     {
@@ -49,11 +53,7 @@ public class Monkey : Primate
         if(other.tag == "MonkeyMan")
         {
             //Make the man more awake
-
-            if(man == null)
-                man = GameObject.FindGameObjectWithTag("MonkeyMan").GetComponent<Man>();
-
-            StartCoroutine(MakeManAwake());
+            nearMan = true;
         }
     }
 
@@ -62,24 +62,27 @@ public class Monkey : Primate
         if (other.tag == "MonkeyMan")
         {
             //Stop making the man awake
-
-            StopCoroutine(MakeManAwake());
+            nearMan = false;
         }
     }
 
     private IEnumerator MakeManAwake()
     {
-        while(true)
+        while (true)
         {
-            //Wait fo the awake rate before making the man awake
-            yield return new WaitForSeconds(awakeRate);
+            if (nearMan == true)
+            {
+                //Wait fo the awake rate before making the man awake
+                yield return new WaitForSeconds(awakeRate);
 
-            //Get the distance between man and monkey
-            Debug.Log(man == null);
-            float distance = Vector3.Distance(man.transform.position, transform.position);
+                //Get the distance between man and monkey
+                Debug.Log(man == null);
+                float distance = Vector3.Distance(man.transform.position, transform.position);
 
-            //Base awake amount times how far away
-            man.ModifySleep(Mathf.Min(closestAwakeAmount / distance, closestAwakeAmount));
+                //Base awake amount times how far away
+                man.ModifySleep(Mathf.Min(closestAwakeAmount / distance, closestAwakeAmount));
+            }
+            yield return null;
         }
     }
 
