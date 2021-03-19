@@ -1,9 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class Visitor : MonoBehaviour
 {
+    [Header("Visitor")]
     public GameObject throwablePrefab;
 
     public bool disruptor = false;
@@ -20,6 +22,10 @@ public class Visitor : MonoBehaviour
     private float timeUntilThrow;
     [SerializeField] private float throwDuration = 3f;
 
+    [Header("NavMesh Helpers")]
+    public Transform destination;
+    private NavMeshAgent agent;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -31,10 +37,22 @@ public class Visitor : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>();
+
+        if (destination != null)
+            agent.destination = destination.position;
+    }
+
+    public void GoTowardsPoint(Vector3 point)
+    {
+        Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
+
+        NavMeshHit hit;
+        NavMesh.SamplePosition(directionOfPoint, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure"));   //Get the closest point on the NavMesh
+
+        agent.destination = point;  //Set the navMeshAgent's destination
     }
 
 

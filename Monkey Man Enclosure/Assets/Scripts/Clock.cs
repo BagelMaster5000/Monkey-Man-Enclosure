@@ -14,7 +14,7 @@ public class Clock : MonoBehaviour
     [Header("Dev Only")]
     public float time = 0f;
     private Man man;
-    private Primate[] primates;
+    private Monkey[] monkeys;
 
     // Start is called before the first frame update
     void Start()
@@ -26,7 +26,7 @@ public class Clock : MonoBehaviour
             hungerAmount *= -1;
 
         man = FindObjectOfType<Man>();
-        primates = FindObjectsOfType<Primate>();
+        monkeys = FindObjectsOfType<Monkey>();
     }
 
     // Update is called once per frame
@@ -65,7 +65,7 @@ public class Clock : MonoBehaviour
             //Check if poop
             if(time >= poopRate)
             {
-                MakePrimatePoop();      //Choose a random primate to make poop
+                MakeMonkeyPoop();      //Choose a random primate to make poop
 
                 poopRate += poopRate;
             }
@@ -80,10 +80,10 @@ public class Clock : MonoBehaviour
         //TODO
     }
 
-    private void MakePrimatePoop()
+    private void MakeMonkeyPoop()
     {
         //Choose a random primate
-        Primate pooper = primates[Random.Range(0, primates.Length)];
+        Monkey pooper = monkeys[Random.Range(0, monkeys.Length)];
 
         //Make them poop
         pooper.Poop();

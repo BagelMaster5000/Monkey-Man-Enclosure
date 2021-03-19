@@ -28,23 +28,28 @@ public class Monkey : Primate
     {
         if(Random.Range(1,11) >= chanceToProjectilePoop)
         {
-            //TODO choose to launch at camera? or launch in random direction
-
-            //TODO Turn the Monkey over???
-
-            //Spawn a piece of poop and get its rigidbody
-            Rigidbody body = Instantiate(poopPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
-
-            //Launch the poop
-            Vector3 randomPos = Random.insideUnitSphere;
-            randomPos.y = 0;
-            body.AddExplosionForce(50f, body.transform.position + Vector3.down + randomPos, 5, 10f, ForceMode.Acceleration);
+            ProjectilePoop();
         }
         else
         {
             //Just do a generic poop
             base.Poop();
         }
+    }
+
+    public void ProjectilePoop()
+    {
+        //TODO choose to launch at camera? or launch in random direction
+
+        //TODO Turn the Monkey over???
+
+        //Spawn a piece of poop and get its rigidbody
+        Rigidbody body = Instantiate(poopPrefab, transform.position, Quaternion.identity).GetComponent<Rigidbody>();
+
+        //Launch the poop
+        Vector3 randomPos = Random.insideUnitSphere;
+        randomPos.y = 0;
+        body.AddExplosionForce(50f, body.transform.position + Vector3.down + randomPos, 5, 10f, ForceMode.Acceleration);
     }
 
 
