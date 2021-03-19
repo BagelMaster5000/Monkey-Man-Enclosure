@@ -9,6 +9,11 @@ ModelImporter:
       assembly: UnityEngine.CoreModule
       name: eyes
     second: {fileID: 2100000, guid: 208ff3bda380116479a5e7c221755f75, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: melon
+    second: {fileID: 2100000, guid: 208ff3bda380116479a5e7c221755f75, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

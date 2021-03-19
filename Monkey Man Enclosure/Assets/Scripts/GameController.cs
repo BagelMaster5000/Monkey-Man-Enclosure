@@ -27,14 +27,17 @@ public class GameController : MonoBehaviour
     #region Setup
     private void Awake()
     {
-        man = manTransform.GetComponent<Man>();
+        if (manTransform)
+            man = manTransform.GetComponent<Man>();
         instance = this;
     }
 
     private void Start()
     {
-        PositionMan();
-        SpawnMonkeys();
+        if (manTransform)
+            PositionMan();
+        if (monkeyPrefab)
+            SpawnMonkeys();
     }
 
     private void PositionMan()

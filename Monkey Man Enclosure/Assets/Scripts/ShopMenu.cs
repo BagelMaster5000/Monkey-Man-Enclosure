@@ -26,6 +26,13 @@ public class ShopMenu : MonoBehaviour
     bool dispenserRumbling;
     const float DISPENSER_RUMBLE_AMT = 15;
 
+    [Header("SFX")]
+    [SerializeField] SoundPlayer pelletDropSFX;
+    [SerializeField] SoundPlayer dispenserCrankSFX;
+    [SerializeField] SoundPlayer menuOpeningSFX;
+    [SerializeField] SoundPlayer purchaseGoodSFX;
+    [SerializeField] SoundPlayer purchaseNeutralSFX;
+
     private void Start()
     {
         visible = false;
@@ -57,8 +64,12 @@ public class ShopMenu : MonoBehaviour
     {
         visible = true;
 
+
         // Slide in from right
         shopMenu.gameObject.SetActive(true);
+
+        if (menuOpeningSFX) menuOpeningSFX.Play();
+
         while (shopMenu.transform.localPosition.x > IN_DISTANCE + 1)
         {
             shopMenu.transform.localPosition =
@@ -100,6 +111,8 @@ public class ShopMenu : MonoBehaviour
     #region Purchasing
     public void AttemptBuyFoodPellets()
     {
+        if (purchaseGoodSFX) purchaseGoodSFX.Play();
+
         dispenserAnimator.SetTrigger("Crank");
         StopAllCoroutines();
         StartCoroutine(DispenserRumbling());
@@ -109,18 +122,18 @@ public class ShopMenu : MonoBehaviour
     public void AttemptBuyBrick()
     {
         // TODO
+        if (purchaseNeutralSFX) purchaseNeutralSFX.Play();
     }
 
     public void AttemptBuyBanana()
     {
         // TODO
+        if (purchaseNeutralSFX) purchaseNeutralSFX.Play();
     }
 
     IEnumerator AnimateDroppingFoodPellets()
     {
-        // TODO
-
-        print("Animating");
+        if (dispenserCrankSFX) dispenserCrankSFX.Play();
 
         int curPellet = pelletIterator;
         pelletIterator += NUM_PELLETS_TO_DROP;
@@ -128,7 +141,6 @@ public class ShopMenu : MonoBehaviour
             pelletIterator -= pelletsPool.Length;
         for (int n = 0; n < NUM_PELLETS_TO_DROP; n++)
         {
-            print("Pellet #" + n);
             pelletsPool[curPellet].SetActive(false);
             yield return null;
             pelletsPool[curPellet].SetActive(true);
@@ -141,6 +153,8 @@ public class ShopMenu : MonoBehaviour
             curPellet++;
             if (curPellet >= pelletsPool.Length)
                 curPellet = 0;
+
+            if (pelletDropSFX) pelletDropSFX.Play();
 
             yield return new WaitForSeconds(DELAY_BETWEEN_DROPS);
         }

@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: 2717588689793857557}
   - component: {fileID: 2717588689793857578}
   - component: {fileID: 3336566747958955112}
+  - component: {fileID: 8649209145976250569}
+  - component: {fileID: 1642754845366905736}
   m_Layer: 9
   m_Name: Banana
   m_TagString: Untagged
@@ -92,6 +94,35 @@ CapsuleCollider:
   m_Height: 0.55
   m_Direction: 2
   m_Center: {x: 0, y: 0.1, z: 0.01}
+--- !u!114 &8649209145976250569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717588689793857556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e077c1b0c6d4b74fb6c084bae935610, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1642754845366905736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2717588689793857556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 2a73d28c3c740ae4fb05fa794ac10ec2, type: 3}
+    volume: 0.2
+    audioSource: {fileID: 0}
 --- !u!1001 &1716771681290190368
 PrefabInstance:
   m_ObjectHideFlags: 0

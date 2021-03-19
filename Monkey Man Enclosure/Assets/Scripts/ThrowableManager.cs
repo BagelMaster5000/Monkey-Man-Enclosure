@@ -46,6 +46,10 @@ public class ThrowableManager : MonoBehaviour
     [SerializeField] GameObject[] bananasPool;
     int bananasPoolIteration = 0;
 
+    [Header("SFX")]
+    [SerializeField] SoundPlayer throwableSelectedSFX;
+    [SerializeField] SoundPlayer throwWooshSFX;
+
     private void Start()
     {
         targetingVisual.SetActive(false);
@@ -59,6 +63,14 @@ public class ThrowableManager : MonoBehaviour
 
     void SelectThrowable(int setSelection)
     {
+        if (GameController.instance.curGameState != GameController.GameState.MAINVIEW)
+        {
+            DeactivateAllButtons();
+            return;
+        }
+
+        if (throwableSelectedSFX) throwableSelectedSFX.Play();
+
         curThrowableSelection = setSelection;
 
         DrawAOECircle(GetAOECircleSizeBasedOnSelection());
@@ -164,6 +176,8 @@ public class ThrowableManager : MonoBehaviour
     #region Throwing
     void Throw()
     {
+        if (throwWooshSFX) throwWooshSFX.Play();
+
         DeactivateAllButtons();
 
         CalculateInitialThrowVelocities(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity);
