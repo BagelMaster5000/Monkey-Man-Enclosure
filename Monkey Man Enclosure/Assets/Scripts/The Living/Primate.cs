@@ -15,14 +15,20 @@ public class Primate : MonoBehaviour
     [SerializeField, Range(0, 10)] private float maxIdleTime = 5f;
     [SerializeField] private float eatingTime = 3f;
 
+
+    private Animator anim;
+
     //NavMesh Movement
     NavMeshAgent agent;
     [SerializeField] private float idleWalkDistance = 1f;
 
 
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
+        anim = GetComponentInChildren<Animator>();
+
         agent = GetComponent<NavMeshAgent>();
 
         state = PrimateState.IdleWalking;
@@ -50,7 +56,30 @@ public class Primate : MonoBehaviour
                 StartCoroutine(IdleMotionlessTimer(Random.Range(0, maxIdleTime)));
             }
         }
-        
+
+        UpdateAnim();
+    }
+
+    protected virtual void UpdateAnim()
+    {
+        if (anim != null)
+        {
+            if (state == PrimateState.IdleMotionless)
+            {
+                anim.SetBool("Walking", false);
+                anim.SetBool("Eating", false);
+            }
+            else if (state == PrimateState.Eating)
+            {
+                anim.SetBool("Walking", false);
+                anim.SetBool("Eating", true);
+            }
+            else    //state is running, going, or idle walking
+            {
+                anim.SetBool("Walking", true);
+                anim.SetBool("Eating", false);
+            }
+        }
     }
 
     public IEnumerator IdleMotionlessTimer(float timeToSit)
