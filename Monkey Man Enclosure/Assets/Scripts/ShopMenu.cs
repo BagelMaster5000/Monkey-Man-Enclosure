@@ -6,7 +6,7 @@ public class ShopMenu : MonoBehaviour
     bool visible;
     [SerializeField] Transform shopMenu;
     const int IN_DISTANCE = 0;
-    const int OUT_DISTANCE = 1500;
+    const int OUT_DISTANCE = -3000;
 
     float foodPrice = 10;
     float brickPrice = 9;
@@ -37,7 +37,7 @@ public class ShopMenu : MonoBehaviour
     {
         visible = false;
 
-        shopMenu.transform.localPosition = Vector3.right * 1999;
+        shopMenu.transform.localPosition = Vector3.right * OUT_DISTANCE;
         shopMenu.gameObject.SetActive(false);
 
         startDispenserPosition = dispenserHolder.localPosition;
@@ -70,7 +70,7 @@ public class ShopMenu : MonoBehaviour
 
         if (menuOpeningSFX) menuOpeningSFX.Play();
 
-        while (shopMenu.transform.localPosition.x > IN_DISTANCE + 1)
+        while (Mathf.Abs(Mathf.Abs(IN_DISTANCE) - Mathf.Abs(shopMenu.transform.localPosition.x)) > 1)
         {
             shopMenu.transform.localPosition =
                 Vector3.right * Mathf.SmoothStep(shopMenu.transform.localPosition.x, IN_DISTANCE, 0.3f);
@@ -97,10 +97,10 @@ public class ShopMenu : MonoBehaviour
         //yield return new WaitForSeconds(0.1f);
 
         // Slide out to right
-        while (shopMenu.transform.localPosition.x < OUT_DISTANCE - 5)
+        while (Mathf.Abs(Mathf.Abs(OUT_DISTANCE) - Mathf.Abs(shopMenu.transform.localPosition.x)) > 15)
         {
             shopMenu.transform.localPosition += 
-                Vector3.right * Mathf.Lerp(shopMenu.transform.localPosition.x, OUT_DISTANCE, 0.1f);
+                Vector3.right * OUT_DISTANCE / 3;
             yield return new WaitForFixedUpdate();
         }
         shopMenu.transform.localPosition = Vector3.right * OUT_DISTANCE;
