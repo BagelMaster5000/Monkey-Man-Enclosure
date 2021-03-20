@@ -6,6 +6,8 @@ public class Clock : MonoBehaviour
 {
     [Header("Clock")]
     [SerializeField, Tooltip("In seconds")] private float hourDuration;                        //The amount of real time that needs to pass for an hour in-game to pass
+    private int totalHoursToWin = 8;
+    private int hoursPassed = 0;
     private float disruptionFrequency;                                      //How frequent (real time) visitor disruption occur
     [SerializeField] private float hungerRate;                              //How frequent (real time) the Man loses hunger
     [SerializeField, Tooltip("Will be negative")] private float hungerAmount;                        //How much hunger the man loses per the rate
@@ -38,9 +40,10 @@ public class Clock : MonoBehaviour
             if(time >= hourDuration)
             {
                 PlayerInventory.instance.RecieveWage();     //Give the player more money
+                hoursPassed++;
 
-                //TODO Check to win game?
-                if (false)
+                //Check to win game
+                if (hoursPassed > totalHoursToWin)
                     GameController.instance.Win();
 
                 hourDuration += hourDuration;

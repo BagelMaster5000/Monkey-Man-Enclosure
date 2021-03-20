@@ -61,5 +61,5 @@ public class Visitor : MonoBehaviour
 		//TODO
     }
 
-    //TODO GoAlongPath CoRoutine?
+
 }
