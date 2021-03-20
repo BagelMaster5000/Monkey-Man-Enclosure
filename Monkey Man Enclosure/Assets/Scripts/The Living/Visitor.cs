@@ -26,6 +26,9 @@ public class Visitor : MonoBehaviour
     public Transform destination;
     private NavMeshAgent agent;
 
+    public enum Going { ToDestination, ToRailing, ToPath}
+    [HideInInspector] public Going state;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -43,6 +46,8 @@ public class Visitor : MonoBehaviour
 
         if (destination != null)
             agent.destination = destination.position;
+
+        state = Going.ToDestination;
     }
 
     public void GoTowardsPoint(Vector3 point)

@@ -11,6 +11,9 @@ public class VisitorDetour : MonoBehaviour
     public Transform capturePoint;
     public Transform destinationPoint;
 
+    private bool throwing = false;
+    private bool handlingVisitor = false;
+
     [Range(0, 1)] public float chanceToCapture = 0.5f;
 
     // Update is called once per frame
@@ -19,15 +22,20 @@ public class VisitorDetour : MonoBehaviour
         if(focusAgent != null && focusAgent.remainingDistance < focusAgent.stoppingDistance)
         {
             //If the visitor gets to the enclosure
-            if(focusAgent.destination == destinationPoint.position)
+            if(focusVisitor.state == Visitor.Going.ToRailing && throwing == false)
             {
+                throwing = true;
+
                 //Have the visitor throw their item and then leave in an amount of time
                 StartCoroutine(DelayThrow());
             }
-            else if(focusAgent.destination == capturePoint.position)
+            else if(focusVisitor.state == Visitor.Going.ToPath)
             {
                 //Have the visitor go back to where they were supposed to go
+                focusVisitor.state = Visitor.Going.ToDestination;
                 focusAgent.destination = focusVisitor.destination.position;
+
+                handlingVisitor = false;
             }
         }
     }
@@ -41,12 +49,14 @@ public class VisitorDetour : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
 
         //Have the visitor go back to where they got captured
+        focusVisitor.state = Visitor.Going.ToPath;
         focusAgent.destination = capturePoint.position;
+        throwing = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Visitor")
+        if (other.tag == "Visitor" && handlingVisitor == false)
         {
             //Get the Visitor
             focusVisitor = other.GetComponent<Visitor>();
@@ -54,10 +64,13 @@ public class VisitorDetour : MonoBehaviour
             //If they are a disruptor, and we capture them
             if(focusVisitor.disruptor == true && Random.Range(0f, 1f) <= chanceToCapture)
             {
+                handlingVisitor = true;
+
                 focusVisitor.disruptor = false; //Prevent this visitor from getting captured in the future
                 focusAgent = focusVisitor.GetComponent<NavMeshAgent>();
 
                 //Send the visitor to their destination
+                focusVisitor.state = Visitor.Going.ToRailing;
                 focusAgent.destination = destinationPoint.position;
             }
         }
