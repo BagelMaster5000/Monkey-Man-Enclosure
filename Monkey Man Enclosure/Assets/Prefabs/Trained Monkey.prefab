@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   state: 0
-  poopPrefab: {fileID: 2717588689793857556, guid: d5e7288bac414d64a9e57a6e0f0ee61d,
+  poopPrefab: {fileID: 3953068678344813830, guid: d38413c4e933a3742871453a44fb1050,
     type: 3}
   maxIdleTime: 5
   eatingTime: 3
