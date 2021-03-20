@@ -106,6 +106,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1636e17561b5a5439c565031ca62ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  capturePoint: {fileID: 4194458890638648519}
+  destinationPoint: {fileID: 4194458890228661042}
+  chanceToCapture: 0.5
 --- !u!65 &4194458891515506169
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -114,7 +117,7 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4194458891515506174}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 4, y: 4, z: 2}

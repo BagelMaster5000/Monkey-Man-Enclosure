@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Monkey
   - MonkeyMan
+  - SceneTransitioner
+  - Visitor
   layers:
   - Default
   - TransparentFX
