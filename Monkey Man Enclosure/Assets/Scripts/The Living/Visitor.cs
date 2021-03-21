@@ -29,6 +29,10 @@ public class Visitor : MonoBehaviour
     public enum Going { ToDestination, ToRailing, ToPath}
     [HideInInspector] public Going state;
 
+    [Header("Animations")]
+    [SerializeField] Animator walkingAnimator;
+    [SerializeField] float walkingSpeedThreshold = 0.02f;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -47,6 +51,9 @@ public class Visitor : MonoBehaviour
 
         if (destination != null)
             agent.destination = destination.position;
+
+        if (walkingAnimator != null)
+            StartCoroutine(RefreshingAnimationState());
 
         state = Going.ToDestination;
     }
@@ -70,5 +77,14 @@ public class Visitor : MonoBehaviour
 		//TODO
     }
 
+    IEnumerator RefreshingAnimationState()
+    {
+        while (true)
+        {
+            if (agent)
+                walkingAnimator.SetBool("Walking", agent.speed > walkingSpeedThreshold);
 
+            yield return new WaitForSeconds(0.05f);
+        }
+    }
 }
