@@ -63,6 +63,9 @@ public class Visitor : MonoBehaviour
     [SerializeField] Animator walkingAnimator;
     [SerializeField] float walkingSpeedThreshold = 0.02f;
 
+    [Header("SFX")]
+    [SerializeField] SoundPlayer throwWooshSFX;
+
     // Start is called before the first frame update
     void OnEnable()
     {
@@ -198,6 +201,8 @@ public class Visitor : MonoBehaviour
             case 1: ThrowBrick(initialXVelocity, initialYVelocity, initialZVelocity); break;
             case 2: ThrowBanana(initialXVelocity, initialYVelocity, initialZVelocity); break;
         }
+
+        throwWooshSFX.Play();
     }
 
     private void CalculateInitialThrowVelocities(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity)

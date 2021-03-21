@@ -580,6 +580,7 @@ MonoBehaviour:
   state: 0
   walkingAnimator: {fileID: 4803074794313260733}
   walkingSpeedThreshold: 0.2
+  throwWooshSFX: {fileID: 8503462826748558718}
 --- !u!195 &4166245960540322974
 NavMeshAgent:
   m_ObjectHideFlags: 0
