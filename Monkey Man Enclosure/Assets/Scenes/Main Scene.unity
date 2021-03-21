@@ -2115,7 +2115,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a149d020424a453488433caf18a12015, type: 2}
+  - {fileID: 2100000, guid: 2a75cfd8a23d49a419ef1ef77264fac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10138,6 +10138,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2666280481566561277, guid: db9759b928a971e44a754cc49e8b5a04,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4638983278178764874, guid: db9759b928a971e44a754cc49e8b5a04,
         type: 3}
       propertyPath: throwableSurface.m_Bits
@@ -11245,7 +11250,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1218363617}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -11574,7 +11579,7 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a149d020424a453488433caf18a12015, type: 2}
+  - {fileID: 2100000, guid: 2a75cfd8a23d49a419ef1ef77264fac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -19893,7 +19898,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: a149d020424a453488433caf18a12015, type: 2}
+  - {fileID: 2100000, guid: 2a75cfd8a23d49a419ef1ef77264fac2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

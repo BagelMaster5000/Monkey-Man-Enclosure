@@ -44,7 +44,7 @@ public class VisitorDetour : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        focusVisitor.ThrowItem(4.5f);
+        focusVisitor.StartThrowing(4.5f);
 
         yield return new WaitForSeconds(5.5f);
 
