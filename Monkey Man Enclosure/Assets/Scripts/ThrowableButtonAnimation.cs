@@ -11,6 +11,8 @@ public class ThrowableButtonAnimation : MonoBehaviour
     [SerializeField] Transform objectGraphic;
     Vector2 objectGraphicStartingPosition;
     float shakeAmt = 0;
+    float curDistanceUp;
+    const float DISTANCE_UP = 20;
 
     [Header("Background Graphic")]
     [SerializeField] Transform backgroundCircle;
@@ -25,7 +27,8 @@ public class ThrowableButtonAnimation : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(BackgroundCircleBouncing());
+        //StartCoroutine(BackgroundCircleBouncing());
+        StartCoroutine(ObjectGraphicMoveUpWhenSelected());
         StartCoroutine(RefreshingButtonState());
     }
 
@@ -37,12 +40,13 @@ public class ThrowableButtonAnimation : MonoBehaviour
         if (shakeAmt > 0)
         {
             objectGraphic.localPosition = objectGraphicStartingPosition +
+                Vector2.up * curDistanceUp +
                 new Vector2(
                     Random.Range(-shakeAmt, shakeAmt),
                     Random.Range(-shakeAmt, shakeAmt));
         }
         else
-            objectGraphic.localPosition = objectGraphicStartingPosition;
+            objectGraphic.localPosition = objectGraphicStartingPosition + Vector2.up * curDistanceUp;
     }
 
     private void FixedUpdate()
@@ -53,31 +57,42 @@ public class ThrowableButtonAnimation : MonoBehaviour
 
     public void Shake(float setShakeAmt) => shakeAmt = setShakeAmt;
 
-
-    IEnumerator BackgroundCircleBouncing()
+    IEnumerator ObjectGraphicMoveUpWhenSelected()
     {
-        float curBackgroundScale = IDLE_SCALE;
         while (true)
         {
-            while (!selected)
-                yield return null;
-
-            curBackgroundScale = IDLE_SCALE;
-            while (curBackgroundScale < BOUNCE_SCALE - 0.01f)
-            {
-                curBackgroundScale = Mathf.Lerp(curBackgroundScale, BOUNCE_SCALE, 0.35f);
-                backgroundCircle.localScale = Vector3.one * curBackgroundScale;
-                yield return new WaitForFixedUpdate();
-            }
-            while (curBackgroundScale > IDLE_SCALE + 0.01f)
-            {
-                curBackgroundScale = Mathf.Lerp(curBackgroundScale, IDLE_SCALE, 0.08f);
-                backgroundCircle.localScale = Vector3.one * curBackgroundScale;
-                yield return new WaitForFixedUpdate();
-            }
-            backgroundCircle.localScale = Vector3.one * IDLE_SCALE;
-        }
+            if (selected)
+                curDistanceUp = Mathf.Lerp(curDistanceUp, DISTANCE_UP, 0.3f);
+            else
+                curDistanceUp = Mathf.SmoothStep(curDistanceUp, 0, 0.35f);
+            yield return new WaitForFixedUpdate();
+        }    
     }
+
+    //IEnumerator BackgroundCircleBouncing()
+    //{
+    //    float curBackgroundScale = IDLE_SCALE;
+    //    while (true)
+    //    {
+    //        while (!selected)
+    //            yield return null;
+
+    //        curBackgroundScale = IDLE_SCALE;
+    //        while (curBackgroundScale < BOUNCE_SCALE - 0.01f)
+    //        {
+    //            curBackgroundScale = Mathf.Lerp(curBackgroundScale, BOUNCE_SCALE, 0.35f);
+    //            backgroundCircle.localScale = Vector3.one * curBackgroundScale;
+    //            yield return new WaitForFixedUpdate();
+    //        }
+    //        while (curBackgroundScale > IDLE_SCALE + 0.01f)
+    //        {
+    //            curBackgroundScale = Mathf.Lerp(curBackgroundScale, IDLE_SCALE, 0.08f);
+    //            backgroundCircle.localScale = Vector3.one * curBackgroundScale;
+    //            yield return new WaitForFixedUpdate();
+    //        }
+    //        backgroundCircle.localScale = Vector3.one * IDLE_SCALE;
+    //    }
+    //}
 
     IEnumerator RefreshingButtonState()
     {
