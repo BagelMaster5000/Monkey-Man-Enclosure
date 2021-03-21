@@ -9,6 +9,14 @@ public class Visitor : MonoBehaviour
     public GameObject throwablePrefab;
     public bool disruptor = false;
 
+    [Header("NavMesh Helpers")]
+    public Transform destination;
+    private NavMeshAgent agent;
+
+    public enum Going { ToDestination, ToRailing, ToPath }
+    [HideInInspector] public Going state;
+
+
     [Header("Throwable Scriptable Objects")]
     [SerializeField] ThrowableSO foodPellets;
     [SerializeField] ThrowableSO brick;
@@ -51,13 +59,6 @@ public class Visitor : MonoBehaviour
     float pelletsThrowRandomizer = 0.5f;
     int bricksPoolIteration = 0;
     int bananasPoolIteration = 0;
-
-    [Header("NavMesh Helpers")]
-    public Transform destination;
-    private NavMeshAgent agent;
-
-    public enum Going { ToDestination, ToRailing, ToPath}
-    [HideInInspector] public Going state;
 
     [Header("Animations")]
     [SerializeField] Animator walkingAnimator;

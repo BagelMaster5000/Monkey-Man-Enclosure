@@ -507,6 +507,23 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &5518266745240104414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4670613763094729044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: fd681f9a2bfc48d4bb5a1a9addaa75b0, type: 3}
+    volume: 0.35
+    audioSource: {fileID: 0}
 --- !u!1 &5538439478328932086
 GameObject:
   m_ObjectHideFlags: 0
@@ -558,6 +575,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   throwablePrefab: {fileID: 0}
   disruptor: 0
+  destination: {fileID: 0}
+  state: 0
   foodPellets: {fileID: 11400000, guid: ec28b915140fa194182d6cf0835ab35e, type: 2}
   brick: {fileID: 11400000, guid: 77526277659540d48bf575f30c8264a4, type: 2}
   banana: {fileID: 11400000, guid: e7abeeb40d3c27f47aec7518a9f9f1af, type: 2}
@@ -576,8 +595,6 @@ MonoBehaviour:
   throwStartLoc: {fileID: 3487906927334726823}
   throwArc: {fileID: 7746766825975974428}
   throwAirTime: 2
-  destination: {fileID: 0}
-  state: 0
   walkingAnimator: {fileID: 4803074794313260733}
   walkingSpeedThreshold: 0.2
   throwWooshSFX: {fileID: 8503462826748558718}

@@ -34,7 +34,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: fd681f9a2bfc48d4bb5a1a9addaa75b0, type: 3}
-    volume: 0.1
+    volume: 0.35
     audioSource: {fileID: 0}
 --- !u!1 &2026472565911791268
 GameObject:
