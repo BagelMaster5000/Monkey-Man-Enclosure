@@ -42,7 +42,8 @@ public class Visitor : MonoBehaviour
 
     private void Start()
     {
-        agent = GetComponent<NavMeshAgent>();
+        if (agent == null)
+            agent = GetComponent<NavMeshAgent>();
 
         if (destination != null)
             agent.destination = destination.position;
@@ -52,7 +53,10 @@ public class Visitor : MonoBehaviour
 
     public void GoTowardsPoint(Vector3 point)
     {
-        Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
+        if(agent == null)
+            agent = GetComponent<NavMeshAgent>();
+
+        Vector3 directionOfPoint = point - transform.position;  //Get direction from visitor to point
 
         NavMeshHit hit;
         NavMesh.SamplePosition(directionOfPoint, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure"));   //Get the closest point on the NavMesh

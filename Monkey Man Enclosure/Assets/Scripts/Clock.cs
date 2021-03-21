@@ -8,6 +8,7 @@ public class Clock : MonoBehaviour
     [SerializeField, Tooltip("In seconds")] private float hourDuration;                        //The amount of real time that needs to pass for an hour in-game to pass
     private int totalHoursToWin = 8;
     private int hoursPassed = 0;
+    public float visitorFrequency = .15f;                                      //How frequent (real time) visitors occur
     private float disruptionFrequency;                                      //How frequent (real time) visitor disruption occur
     [SerializeField] private float hungerRate;                              //How frequent (real time) the Man loses hunger
     [SerializeField, Tooltip("Will be negative")] private float hungerAmount;                        //How much hunger the man loses per the rate
@@ -18,11 +19,18 @@ public class Clock : MonoBehaviour
     private Man man;
     private Monkey[] monkeys;
 
+    [Header("Visitor Helpers")]
+    public GameObject visitorPrefab;
+    public Transform[] startPoints;
+    public Transform[] endPoints;
+    private int index = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         //Set Disruption Frequency
-        disruptionFrequency = 100 * GameController.instance.curLevel.disruptionFrequency;
+        disruptionFrequency = hourDuration * GameController.instance.curLevel.disruptionFrequency;
+        visitorFrequency = hourDuration * visitorFrequency;
 
         if (hungerAmount > 0)
             hungerAmount *= -1;
@@ -49,10 +57,18 @@ public class Clock : MonoBehaviour
                 hourDuration += hourDuration;
             }
 
-            //Check for a new disrutption
-            if(time >= disruptionFrequency)
+            //Check for a new visitor
+            if (time >= visitorFrequency)
             {
-                SendDisruption();       //Send in a visitor to make a disruption
+                SendVisitor(false);       //Send in a visitor
+
+                visitorFrequency += visitorFrequency;
+            }
+
+            //Check for a new disrutption
+            if (time >= disruptionFrequency)
+            {
+                SendVisitor(true);       //Send in a visitor to make a disruption
 
                 disruptionFrequency += disruptionFrequency;
             }
@@ -78,13 +94,24 @@ public class Clock : MonoBehaviour
     }
 
 
-    private void SendDisruption()
+    private void SendVisitor(bool disruption)
     {
-        //TODO
+        Visitor focusVisitor = Instantiate(visitorPrefab, startPoints[index].position, Quaternion.identity).GetComponent<Visitor>();
+
+        focusVisitor.destination = endPoints[index];
+
+        focusVisitor.disruptor = disruption;
+
+        focusVisitor.GoTowardsPoint(endPoints[index].position);
+
+        index = (index + 1) % startPoints.Length;
     }
 
     private void MakeMonkeyPoop()
     {
+        if(monkeys.Length == 0)
+            monkeys = FindObjectsOfType<Monkey>();
+
         //Choose a random primate
         Monkey pooper = monkeys[Random.Range(0, monkeys.Length)];
 

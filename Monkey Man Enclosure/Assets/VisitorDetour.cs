@@ -32,8 +32,8 @@ public class VisitorDetour : MonoBehaviour
             else if(focusVisitor.state == Visitor.Going.ToPath)
             {
                 //Have the visitor go back to where they were supposed to go
-                focusVisitor.state = Visitor.Going.ToDestination;
                 focusAgent.destination = focusVisitor.destination.position;
+                focusVisitor.state = Visitor.Going.ToDestination;
 
                 handlingVisitor = false;
             }
