@@ -16,8 +16,10 @@ MonoBehaviour:
   poopPrefab: {fileID: 3953068678344813830, guid: d38413c4e933a3742871453a44fb1050,
     type: 3}
   maxIdleTime: 5
-  eatingTime: 3
   idleWalkDistance: 4
+  SeeFoodObject: {fileID: 4680670287438671064}
+  ScreamObject: {fileID: 6506831716140633607}
+  eatingSound: {fileID: 6608843139757518754}
   chanceToProjectilePoop: 11
 --- !u!114 &2189352607961435340
 MonoBehaviour:
@@ -111,3 +113,27 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 499141044310652431}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &4680670287438671064 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5050886974831188695, guid: 3a4b3737f94e685419bf05939f21e18d,
+    type: 3}
+  m_PrefabInstance: {fileID: 499141044310652431}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6506831716140633607 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6674799578027063304, guid: 3a4b3737f94e685419bf05939f21e18d,
+    type: 3}
+  m_PrefabInstance: {fileID: 499141044310652431}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6608843139757518754 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6726721912601450925, guid: 3a4b3737f94e685419bf05939f21e18d,
+    type: 3}
+  m_PrefabInstance: {fileID: 499141044310652431}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

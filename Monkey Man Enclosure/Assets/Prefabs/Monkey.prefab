@@ -54,6 +54,7 @@ Transform:
   - {fileID: 1987709709239575114}
   - {fileID: 6830772747089643766}
   - {fileID: 6275888822338743546}
+  - {fileID: 5328852648933609660}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -73,8 +74,10 @@ MonoBehaviour:
   poopPrefab: {fileID: 3953068678344813830, guid: d38413c4e933a3742871453a44fb1050,
     type: 3}
   maxIdleTime: 1
-  eatingTime: 3
   idleWalkDistance: 4
+  SeeFoodObject: {fileID: 5050886974831188695}
+  ScreamObject: {fileID: 6674799578027063304}
+  eatingSound: {fileID: 6726721912601450925}
   chanceToProjectilePoop: 11
 --- !u!195 &2026472565911791266
 NavMeshAgent:
@@ -170,6 +173,255 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2026472565911791267}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &3340456118774015371
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180756383118370202}
+  - component: {fileID: 6726721912601450925}
+  m_Layer: 0
+  m_Name: MonkeyEat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1180756383118370202
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3340456118774015371}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5328852648933609660}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6726721912601450925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3340456118774015371}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 2ec5842b4b8076d4a99f15e04ac19dd2, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!1 &5050886974831188695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8316926940307982436}
+  - component: {fileID: 4549763972998812779}
+  - component: {fileID: 6986412405221433667}
+  - component: {fileID: 4337462150245944505}
+  m_Layer: 0
+  m_Name: MonkeySeeFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8316926940307982436
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050886974831188695}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5328852648933609660}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4549763972998812779
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050886974831188695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: ed9c87f8d0ebc3e4baf53be298c3a287, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &6986412405221433667
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050886974831188695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &4337462150245944505
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5050886974831188695}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!1 &6674799578027063304
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4234097829989094857}
+  - component: {fileID: 6101747350564972034}
+  - component: {fileID: 4831385494729464029}
+  - component: {fileID: 156801114961551260}
+  m_Layer: 0
+  m_Name: MonkeyScaredScreams
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4234097829989094857
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674799578027063304}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5328852648933609660}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6101747350564972034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674799578027063304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: e1ff8bcdc284349488f823146d371eaa, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &4831385494729464029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674799578027063304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 56b0eeaf31f094c45b58566a26b0054c, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &156801114961551260
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6674799578027063304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: b9dbb244efcdd7648b9a91eb837f5f49, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!1 &8780142979570082428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5328852648933609660}
+  m_Layer: 0
+  m_Name: MonkeySounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5328852648933609660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8780142979570082428}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -0.000000059604645, y: 0.000000009313226, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 8316926940307982436}
+  - {fileID: 4234097829989094857}
+  - {fileID: 1180756383118370202}
+  m_Father: {fileID: 2026472565911791267}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9036494770081471985
 GameObject:

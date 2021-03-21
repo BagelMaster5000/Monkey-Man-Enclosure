@@ -13,7 +13,6 @@ public class Primate : MonoBehaviour
     [Header("Primate")]
     public GameObject poopPrefab;
     [SerializeField, Range(0, 10)] private float maxIdleTime = 5f;
-    [SerializeField] private float eatingTime = 3f;
 
 
     private Animator anim;
@@ -22,7 +21,12 @@ public class Primate : MonoBehaviour
     NavMeshAgent agent;
     [SerializeField] private float idleWalkDistance = 1f;
 
-
+    [Header("Sound Helpers")]
+    public GameObject SeeFoodObject;
+    public GameObject ScreamObject;
+    private SoundPlayer[] seeFoods;
+    private SoundPlayer[] screams;
+    public SoundPlayer eatingSound;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -33,6 +37,11 @@ public class Primate : MonoBehaviour
 
         state = PrimateState.IdleWalking;
         agent.destination = transform.position;
+
+        if (SeeFoodObject != null)
+            seeFoods = SeeFoodObject.GetComponents<SoundPlayer>();
+        if (ScreamObject != null)
+            screams = ScreamObject.GetComponents<SoundPlayer>();
     }
 
     protected virtual void Update()
@@ -44,9 +53,12 @@ public class Primate : MonoBehaviour
             {
                 state = PrimateState.Eating;
 
-                //TODO Monkey eating sounds
+                //Monkey eating sounds
+                if (eatingSound != null)
+                    eatingSound.Play();
 
-                //TODO Eating timer
+                //Make primate eat
+                anim.SetTrigger("Eating");
             }
             else if(state == PrimateState.RunningFromSomething || state == PrimateState.IdleWalking)    //Go to motionless
             {
@@ -135,7 +147,9 @@ public class Primate : MonoBehaviour
                 return;
 
 
-            //TODO Play Monkey sounds
+            //Play Monkey sounds (see food)
+            PlaySound(seeFoods);
+
 
             state = PrimateState.GoingTowardsSomething;
 
@@ -152,7 +166,8 @@ public class Primate : MonoBehaviour
     {
         StopCoroutine("IdleMotionlessTimer");
 
-        //TODO Play Monkey Sounds
+        //Play Monkey Sounds (scream)
+        PlaySound(screams);
 
         state = PrimateState.RunningFromSomething;
 
@@ -174,7 +189,8 @@ public class Primate : MonoBehaviour
 
         StopAllCoroutines();
 
-        //TODO Play Monkey Sounds
+        //Play Monkey Sounds (whistle)
+        PlaySound(seeFoods);
 
         state = PrimateState.GoingTowardsSomething;
 
@@ -184,4 +200,11 @@ public class Primate : MonoBehaviour
 
     #endregion
 
+
+
+    public virtual void PlaySound(SoundPlayer[] soundArray)
+    {
+        int rand = Random.Range(0, soundArray.Length);
+        soundArray[rand].Play();
+    }
 }

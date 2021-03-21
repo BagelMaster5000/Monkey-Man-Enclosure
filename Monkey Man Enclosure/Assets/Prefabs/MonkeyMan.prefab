@@ -1,5 +1,170 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &511071825562624439
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 371095201623113775}
+  - component: {fileID: 2070752734172267482}
+  - component: {fileID: 4916037509945736897}
+  - component: {fileID: 5826691351202207291}
+  m_Layer: 0
+  m_Name: MonkeyScaredScreams
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &371095201623113775
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511071825562624439}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1658986488098782070}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2070752734172267482
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511071825562624439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: e1ff8bcdc284349488f823146d371eaa, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &4916037509945736897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511071825562624439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 56b0eeaf31f094c45b58566a26b0054c, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &5826691351202207291
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 511071825562624439}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: b9dbb244efcdd7648b9a91eb837f5f49, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!1 &2319441760445568680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1658986488098782070}
+  m_Layer: 0
+  m_Name: MonkeySounds
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1658986488098782070
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2319441760445568680}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -3.2500002, y: -0.00999999, z: -1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 5189962891094177533}
+  - {fileID: 371095201623113775}
+  - {fileID: 4699878776252107402}
+  m_Father: {fileID: 2678368497211731039}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &2465795989954813779
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4699878776252107402}
+  - component: {fileID: 8186664003002673838}
+  m_Layer: 0
+  m_Name: MonkeyEat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4699878776252107402
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465795989954813779}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1658986488098782070}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8186664003002673838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2465795989954813779}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 2ec5842b4b8076d4a99f15e04ac19dd2, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
 --- !u!1 &2678368497211731029
 GameObject:
   m_ObjectHideFlags: 0
@@ -32,6 +197,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2495487358991898018}
+  - {fileID: 1658986488098782070}
   - {fileID: 2029557390226937539}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -52,8 +218,10 @@ MonoBehaviour:
   poopPrefab: {fileID: 3953068678344813830, guid: d38413c4e933a3742871453a44fb1050,
     type: 3}
   maxIdleTime: 1
-  eatingTime: 3
   idleWalkDistance: 4
+  SeeFoodObject: {fileID: 8404018166296013844}
+  ScreamObject: {fileID: 511071825562624439}
+  eatingSound: {fileID: 8186664003002673838}
   canvas: {fileID: 8957717453981055136}
   hungerIcon: {fileID: 1372459386193942312}
   awakeBar: {fileID: 907448346163973087}
@@ -189,6 +357,90 @@ MonoBehaviour:
   m_FillOrigin: 2
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &8404018166296013844
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5189962891094177533}
+  - component: {fileID: 392506714385373744}
+  - component: {fileID: 686429367503251276}
+  - component: {fileID: 7151693536135682540}
+  m_Layer: 0
+  m_Name: MonkeySeeFood
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5189962891094177533
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404018166296013844}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1658986488098782070}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &392506714385373744
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404018166296013844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: ed9c87f8d0ebc3e4baf53be298c3a287, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &686429367503251276
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404018166296013844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
+--- !u!114 &7151693536135682540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8404018166296013844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 737e0a367dfb0904182b302d7f003597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sound:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
 --- !u!1 &8861256243311734004
 GameObject:
   m_ObjectHideFlags: 0
@@ -296,7 +548,7 @@ RectTransform:
   - {fileID: 8496331671836133953}
   - {fileID: 7224451182531108182}
   m_Father: {fileID: 2678368497211731039}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
