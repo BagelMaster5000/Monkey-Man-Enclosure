@@ -24,6 +24,11 @@ public class GameController : MonoBehaviour
     int maxSpawnCollisionChecks = 15;
     [SerializeField] LayerMask primateLayer;
 
+    [Header("Whistle SFX")]
+    public SoundPlayer goodWhistle;
+    public SoundPlayer badWhistle;
+
+
     #region Setup
     private void Awake()
     {
@@ -114,7 +119,12 @@ public class GameController : MonoBehaviour
 
     public void Whistle()
     {
+        if (Random.Range(0, 1f) < 0.8f)
+            goodWhistle.Play();
+        else
+            badWhistle.Play();
 
+        //TODO make all monkey's come forth
     }
 
     public void Win()
