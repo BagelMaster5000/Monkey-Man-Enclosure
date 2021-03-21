@@ -44,9 +44,9 @@ public class VisitorDetour : MonoBehaviour
     {
         yield return new WaitForSeconds(0.1f);
 
-        focusVisitor.ThrowItem();
+        focusVisitor.StartThrowing(4.5f);
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(5.5f);
 
         //Have the visitor go back to where they got captured
         focusVisitor.state = Visitor.Going.ToPath;

@@ -40,7 +40,7 @@ public class ThrowableManager : MonoBehaviour
     [SerializeField] GameObject[] foodPelletsPool;
     int numFoodPelletsToThrow = 5;
     int foodPelletsPoolIteration = 0;
-    float throwRandomizor = 0.5f;
+    float pelletsThrowRandomizer = 0.5f;
     [SerializeField] GameObject[] bricksPool;
     int bricksPoolIteration = 0;
     [SerializeField] GameObject[] bananasPool;
@@ -216,16 +216,16 @@ public class ThrowableManager : MonoBehaviour
             itemToThrow.transform.position =
                 throwStartLoc.position +
                 new Vector3(
-                    Random.Range(-throwRandomizor, throwRandomizor),
-                    Random.Range(-throwRandomizor, throwRandomizor),
-                    Random.Range(-throwRandomizor, throwRandomizor));
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer));
             itemToThrow.useGravity = true;
             itemToThrow.velocity =
                 new Vector3(initialXVelocity, initialYVelocity, initialZVelocity) +
                 new Vector3(
-                    Random.Range(-throwRandomizor, throwRandomizor),
-                    Random.Range(-throwRandomizor, throwRandomizor),
-                    Random.Range(-throwRandomizor, throwRandomizor));
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
+                    Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer));
 
             foodPelletsPoolIteration++;
             if (foodPelletsPoolIteration >= foodPelletsPool.Length)
