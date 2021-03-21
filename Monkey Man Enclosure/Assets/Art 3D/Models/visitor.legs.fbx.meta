@@ -1,72 +1,15 @@
 fileFormatVersion: 2
-guid: 9b1b712bfb92793469d0cc60de893298
+guid: c420dbb3622f71e43a81baccdc4361b1
 ModelImporter:
   serializedVersion: 19301
   internalIDToNameTable:
   - first:
-      74: -8447460896553759901
-    second: _ManRig|Camera.001Action
+      74: -5096480049123989553
+    second: _LegsRig|Legs|Idle
   - first:
-      74: 2467753431018953628
-    second: _ManRig|Man|Eating
-  - first:
-      74: 4857313663419852930
-    second: _ManRig|Man|Panic
-  - first:
-      74: -2360246990992167420
-    second: _ManRig|Man|Sleep
-  - first:
-      74: 5312267809715905381
-    second: _ManRig|Man|SleepWalk
-  - first:
-      74: 8026578381885982226
-    second: _ManRig|Man|Celebration
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: baltic.sea
-    second: {fileID: 2100000, guid: 0ad0f387d034cc14e8b748f1dc8e42be, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: body
-    second: {fileID: 2100000, guid: dc2f8f263b8b5ce4fbf4015220705d73, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: dark
-    second: {fileID: 2100000, guid: 0c373361c6c8ae644868d7727197884a, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: expression
-    second: {fileID: 2100000, guid: 0e6aac647b9725c4f887c70ac680164b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: eyes
-    second: {fileID: 2100000, guid: 4701077f47ada1f438ee7176f433f72b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: geraldine
-    second: {fileID: 2100000, guid: 46e5b76572f3f33479a988f8099f68f9, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: melon
-    second: {fileID: 2100000, guid: c4381a6d8bf060c45bb9e818d6cca6b3, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: skin
-    second: {fileID: 2100000, guid: 08008b964f52d854d9e7e791c55482d7, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: wedgewood
-    second: {fileID: 2100000, guid: e796e7f09c61e5748be4f1ae240f466d, type: 2}
+      74: -5953411604336990719
+    second: _LegsRig|Legs|Walk
+  externalObjects: {}
   materials:
     materialImportMode: 1
     materialName: 0
