@@ -102,4 +102,9 @@ public class Man : Primate
             GameController.instance.Lose();
         }
     }
+
+    public override void PlaySound(SoundPlayer[] soundArray)
+    {
+        
+    }
 }

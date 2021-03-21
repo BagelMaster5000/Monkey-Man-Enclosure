@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class Monkey : Primate
 {
-    [Header("Monkey")]
+    
     private float awakeRate = 1f;
     private float closestAwakeAmount = 5f;
     private bool nearMan = false;
 
-
+    [Header("Monkey")]
     [SerializeField, Range(0, 11), Tooltip("Must get at or above this number for the monkey to launch poop.\n(0 = Always projectile poop, 11 = Never projectile poop)")]
     private int chanceToProjectilePoop = 3;
     private Man man;
