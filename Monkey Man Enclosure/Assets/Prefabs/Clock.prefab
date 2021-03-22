@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hourDuration: 60
+  visitorFrequency: 3
   hungerRate: 5
   hungerAmount: 40
   poopRate: 5
@@ -52,3 +53,4 @@ MonoBehaviour:
     type: 3}
   startPoints: []
   endPoints: []
+  clockAnimator: {fileID: 0}

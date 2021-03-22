@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -13,6 +14,7 @@ public class ThrowableManager : MonoBehaviour
     [SerializeField] ThrowableSO banana;
 
     [Header("Targeting")]
+    Coroutine trackingCoroutine;
     [SerializeField] LayerMask throwableSurface;
     bool tracking;
     [SerializeField] GameObject targetingVisual;
@@ -33,8 +35,9 @@ public class ThrowableManager : MonoBehaviour
     // [SerializeField] float throwHeight = 2;
 
     [Header("Buttons")]
-    [SerializeField] Toggle[] throwableButtons;
+    [SerializeField] Toggle[] throwableButtons = new Toggle[3];
     int curThrowableSelection; // 0 Food Pellet, 1 Brick, 2 Banana
+    [SerializeField] TextMeshProUGUI[] throwableAmtTexts = new TextMeshProUGUI[3];
 
     [Header("Pools")]
     [SerializeField] GameObject[] foodPelletsPool;
@@ -53,6 +56,8 @@ public class ThrowableManager : MonoBehaviour
     private void Start()
     {
         targetingVisual.SetActive(false);
+
+        StartCoroutine(RefreshingButtonStates());
     }
 
 
@@ -63,11 +68,13 @@ public class ThrowableManager : MonoBehaviour
 
     void SelectThrowable(int setSelection)
     {
-        if (GameController.instance.curGameState != GameController.GameState.MAINVIEW)
-        {
-            DeactivateAllButtons();
-            return;
-        }
+        //if (GameController.instance.curGameState != GameController.GameState.MAINVIEW)
+        //{
+        //    TurnOffAllThrowableButtons();
+        //    return;
+        //}
+
+        
 
         if (throwableSelectedSFX) throwableSelectedSFX.Play();
 
@@ -75,8 +82,9 @@ public class ThrowableManager : MonoBehaviour
 
         DrawAOECircle(GetAOECircleSizeBasedOnSelection());
 
-        StopAllCoroutines();
-        StartCoroutine(Tracking());
+        if (trackingCoroutine != null)
+            StopCoroutine(trackingCoroutine);
+        trackingCoroutine = StartCoroutine(Tracking());
     }
 
     private float GetAOECircleSizeBasedOnSelection()
@@ -178,8 +186,6 @@ public class ThrowableManager : MonoBehaviour
     {
         if (throwWooshSFX) throwWooshSFX.Play();
 
-        DeactivateAllButtons();
-
         CalculateInitialThrowVelocities(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity);
 
         switch (curThrowableSelection)
@@ -188,13 +194,10 @@ public class ThrowableManager : MonoBehaviour
             case 1: ThrowBrick(initialXVelocity, initialYVelocity, initialZVelocity); break;
             case 2: ThrowBanana(initialXVelocity, initialYVelocity, initialZVelocity); break;
         }
-    }
 
-    private void DeactivateAllButtons()
-    {
         targetingVisual.SetActive(false);
-        foreach (Toggle throwableButton in throwableButtons)
-            throwableButton.SetIsOnWithoutNotify(false);
+
+        TurnOffAllThrowableButtons();
     }
 
     private void CalculateInitialThrowVelocities(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity)
@@ -208,6 +211,8 @@ public class ThrowableManager : MonoBehaviour
 
     private void ThrowFoodPellets(float initialXVelocity, float initialYVelocity, float initialZVelocity)
     {
+        PlayerInventory.instance.SubFoodPellet();
+
         Rigidbody itemToThrow;
         for (int x = 0; x < numFoodPelletsToThrow; x++)
         {
@@ -235,6 +240,8 @@ public class ThrowableManager : MonoBehaviour
 
     private void ThrowBrick(float initialXVelocity, float initialYVelocity, float initialZVelocity)
     {
+        PlayerInventory.instance.SubBrick();
+
         Rigidbody itemToThrow;
         bricksPool[bricksPoolIteration].SetActive(true);
         itemToThrow = bricksPool[bricksPoolIteration].GetComponent<Rigidbody>();
@@ -249,6 +256,8 @@ public class ThrowableManager : MonoBehaviour
 
     private void ThrowBanana(float initialXVelocity, float initialYVelocity, float initialZVelocity)
     {
+        PlayerInventory.instance.SubBanana();
+
         Rigidbody itemToThrow;
         bananasPool[bananasPoolIteration].SetActive(true);
         itemToThrow = bananasPool[bananasPoolIteration].GetComponent<Rigidbody>();
@@ -261,4 +270,30 @@ public class ThrowableManager : MonoBehaviour
             bananasPoolIteration = 0;
     }
     #endregion
+
+    IEnumerator RefreshingButtonStates()
+    {
+        PlayerInventory inventory = PlayerInventory.instance;
+        while (true)
+        {
+            throwableButtons[0].interactable = inventory.GetSupplies().foodPelletAmt > 0 &&
+                GameController.instance.curGameState == GameController.GameState.MAINVIEW;
+            throwableButtons[1].interactable = inventory.GetSupplies().brickAmt > 0 &&
+                GameController.instance.curGameState == GameController.GameState.MAINVIEW;
+            throwableButtons[2].interactable = inventory.GetSupplies().bananaAmt > 0 &&
+                GameController.instance.curGameState == GameController.GameState.MAINVIEW;
+
+            throwableAmtTexts[0].text = inventory.GetSupplies().foodPelletAmt.ToString();
+            throwableAmtTexts[1].text = inventory.GetSupplies().brickAmt.ToString();
+            throwableAmtTexts[2].text = inventory.GetSupplies().bananaAmt.ToString();
+
+            yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
+        }
+    }
+
+    void TurnOffAllThrowableButtons()
+    {
+        foreach (Toggle throwableButton in throwableButtons)
+            throwableButton.SetIsOnWithoutNotify(false);
+    }
 }

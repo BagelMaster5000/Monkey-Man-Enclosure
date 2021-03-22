@@ -4,8 +4,6 @@ using UnityEngine.UI;
 
 public class MonkeyMoneyAnimator : MonoBehaviour
 {
-    public float tempMoney;
-
     [Header("Money Pileup")]
     [SerializeField] Image monkeyMoneyRenderer;
     [SerializeField] Sprite[] monkeyMoneyTiers;
@@ -18,20 +16,24 @@ public class MonkeyMoneyAnimator : MonoBehaviour
 
     IEnumerator RefreshingMoneyGraphicAndText()
     {
+        PlayerInventory playerInventory = PlayerInventory.instance;
+        int curMoney;
+
         while (true)
         {
-            RefreshMoneyPileup();
-            RefreshMoneyCounter();
+            curMoney = playerInventory.GetMoney();
+            RefreshMoneyPileup(curMoney);
+            RefreshMoneyCounter(curMoney);
 
             yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
         }
     }
 
-    private void RefreshMoneyPileup()
+    private void RefreshMoneyPileup(int curMoney)
     {
         for (int m = monkeyMoneyTierAmts.Length - 1; m >= 0; m--)
         {
-            if (tempMoney >= monkeyMoneyTierAmts[m])
+            if (curMoney >= monkeyMoneyTierAmts[m])
             {
                 monkeyMoneyRenderer.sprite = monkeyMoneyTiers[m];
                 monkeyMoneyRenderer.enabled = true;
@@ -42,9 +44,9 @@ public class MonkeyMoneyAnimator : MonoBehaviour
         }
     }
 
-    private void RefreshMoneyCounter()
+    private void RefreshMoneyCounter(int curMoney)
     {
-        monkeyMoneyCounter.text = "$" + tempMoney.ToString("0.00");
+        monkeyMoneyCounter.text = "$" + curMoney.ToString("0.00");
     }
 
 }

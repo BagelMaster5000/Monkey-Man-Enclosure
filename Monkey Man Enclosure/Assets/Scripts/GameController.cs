@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -24,6 +26,15 @@ public class GameController : MonoBehaviour
     int maxSpawnCollisionChecks = 15;
     [SerializeField] LayerMask primateLayer;
 
+    [Header("Whistle")]
+    [SerializeField] Button whistleButton;
+
+    [Header("SFX")]
+    [Range(0, 1)]
+    [SerializeField] float badWhistleChance = 0.2f;
+    [SerializeField] SoundPlayer whistleGoodSFX;
+    [SerializeField] SoundPlayer whistleBadSFX;
+
     #region Setup
     private void Awake()
     {
@@ -38,6 +49,8 @@ public class GameController : MonoBehaviour
             PositionMan();
         if (monkeyPrefab)
             SpawnMonkeys();
+
+        StartCoroutine(RefreshingWhistleButtonState());
     }
 
     private void PositionMan()
@@ -112,10 +125,24 @@ public class GameController : MonoBehaviour
         winLoseMenu.SetTexts(victory);
     }
 
+    #region Whistle
+    IEnumerator RefreshingWhistleButtonState()
+    {
+        while (true)
+        {
+            whistleButton.interactable = curGameState == GameState.MAINVIEW;
+            yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
+        }
+    }
+
     public void Whistle()
     {
-
+        if (Random.Range(0.0f, 1.0f) <= badWhistleChance)
+            whistleBadSFX.Play();
+        else
+            whistleGoodSFX.Play();
     }
+    #endregion
 
     public void Win()
     {

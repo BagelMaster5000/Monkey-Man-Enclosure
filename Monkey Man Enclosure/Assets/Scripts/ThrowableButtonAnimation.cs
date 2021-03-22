@@ -34,7 +34,6 @@ public class ThrowableButtonAnimation : MonoBehaviour
 
     void Update()
     {
-        toggleComponent.interactable = GameController.instance.curGameState == GameController.GameState.MAINVIEW;
         selected = toggleComponent.isOn;
 
         if (shakeAmt > 0)
@@ -98,7 +97,6 @@ public class ThrowableButtonAnimation : MonoBehaviour
     {
         while (true)
         {
-            toggleComponent.interactable = GameController.instance.curGameState == GameController.GameState.MAINVIEW;
             selected = toggleComponent.isOn;
 
             yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
