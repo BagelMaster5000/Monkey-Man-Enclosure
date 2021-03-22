@@ -12,7 +12,8 @@ public class Primate : MonoBehaviour
 
     [Header("Primate")]
     public GameObject poopPrefab;
-    [SerializeField, Range(0, 10)] private float maxIdleTime = 5f;
+    [SerializeField, Range(0, 10)] private float minIdleTime = 1f;
+    [SerializeField, Range(0, 10)] private float maxIdleTime = 4f;
 
 
     private Animator anim;
@@ -20,6 +21,9 @@ public class Primate : MonoBehaviour
     //NavMesh Movement
     NavMeshAgent agent;
     [SerializeField] private float idleWalkDistance = 1f;
+
+    float durationOfFoodAttraction = 4.5f;
+    float timeToStopGoingTowardFood;
 
     [Header("Sound Helpers")]
     public GameObject SeeFoodObject;
@@ -66,6 +70,10 @@ public class Primate : MonoBehaviour
             }
         }
 
+        if (state == PrimateState.GoingTowardsSomething && Time.time > timeToStopGoingTowardFood)
+            BecomeIdle();
+
+
         UpdateAnim();
     }
 
@@ -95,7 +103,7 @@ public class Primate : MonoBehaviour
         state = PrimateState.IdleMotionless;
 
         //Timer till go to random point (Idle for a psuedo random amount of time)
-        StartCoroutine(IdleMotionlessTimer(Random.Range(0, maxIdleTime)));
+        StartCoroutine(IdleMotionlessTimer(Random.Range(minIdleTime, maxIdleTime)));
     }
 
     public IEnumerator IdleMotionlessTimer(float timeToSit)
@@ -150,6 +158,7 @@ public class Primate : MonoBehaviour
             if (state == PrimateState.GoingTowardsSomething && agent.remainingDistance < Vector3.Distance(point, transform.position))
                 return;
 
+            timeToStopGoingTowardFood = Time.time + durationOfFoodAttraction;
 
             //Play Monkey sounds (see food)
             PlaySound(seeFoods);
