@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class ShopMenu : MonoBehaviour
@@ -8,9 +9,13 @@ public class ShopMenu : MonoBehaviour
     const int IN_DISTANCE = 0;
     const int OUT_DISTANCE = -3000;
 
-    float foodPrice = 10;
-    float brickPrice = 9;
-    float bananaPrice = 8;
+    [Header("Item Prices")]
+    [SerializeField] TextMeshProUGUI foodPelletPriceText;
+    [SerializeField] TextMeshProUGUI brickPriceText;
+    [SerializeField] TextMeshProUGUI bananaPriceText;
+    [SerializeField] int foodPelletsPrice = 5;
+    [SerializeField] int brickPrice = 5;
+    [SerializeField] int bananaPrice = 5;
 
     [Header("Pellet Animations")]
     [SerializeField] GameObject[] pelletsPool;
@@ -39,6 +44,10 @@ public class ShopMenu : MonoBehaviour
 
         shopMenu.transform.localPosition = Vector3.right * OUT_DISTANCE;
         shopMenu.gameObject.SetActive(false);
+
+        foodPelletPriceText.text = "$" + foodPelletsPrice;
+        brickPriceText.text = "$" + brickPrice;
+        bananaPriceText.text = "$" + bananaPrice;
 
         startDispenserPosition = dispenserHolder.localPosition;
     }
@@ -111,6 +120,12 @@ public class ShopMenu : MonoBehaviour
     #region Purchasing
     public void AttemptBuyFoodPellets()
     {
+        PlayerInventory playerInventory = PlayerInventory.instance;
+        if (playerInventory.GetMoney() < foodPelletsPrice) return; // Cancels purchase because too poor
+
+        playerInventory.AddFoodPellet();
+        playerInventory.SubtractMoney(foodPelletsPrice);
+
         if (purchaseGoodSFX) purchaseGoodSFX.Play();
 
         dispenserAnimator.SetTrigger("Crank");
@@ -121,13 +136,23 @@ public class ShopMenu : MonoBehaviour
 
     public void AttemptBuyBrick()
     {
-        // TODO
+        PlayerInventory playerInventory = PlayerInventory.instance;
+        if (playerInventory.GetMoney() < brickPrice) return; // Cancels purchase because too poor
+
+        playerInventory.AddBrick();
+        playerInventory.SubtractMoney(brickPrice);
+
         if (purchaseNeutralSFX) purchaseNeutralSFX.Play();
     }
 
     public void AttemptBuyBanana()
     {
-        // TODO
+        PlayerInventory playerInventory = PlayerInventory.instance;
+        if (playerInventory.GetMoney() < bananaPrice) return; // Cancels purchase because too poor
+
+        playerInventory.AddBanana();
+        playerInventory.SubtractMoney(bananaPrice);
+
         if (purchaseNeutralSFX) purchaseNeutralSFX.Play();
     }
 

@@ -27,10 +27,15 @@ public class PlayerInventory : MonoBehaviour
         money += hourlyWage;
     }
 
+    public int GetMoney() { return money; }
+    public void SubtractMoney(int subAmt) { money -= subAmt; }
     public Supplies GetSupplies() { return supplies; }
     public void AddFoodPellet() { ++supplies.foodPelletAmt; }
+    public void SubFoodPellet() { --supplies.foodPelletAmt; }
     public void AddBanana() { ++supplies.bananaAmt; }
+    public void SubBanana() { --supplies.bananaAmt; }
     public void AddBrick() { ++supplies.brickAmt; }
+    public void SubBrick() { --supplies.brickAmt; }
 }
 
 public struct Supplies
