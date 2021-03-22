@@ -62,10 +62,7 @@ public class Primate : MonoBehaviour
             }
             else if(state == PrimateState.RunningFromSomething || state == PrimateState.IdleWalking)    //Go to motionless
             {
-                state = PrimateState.IdleMotionless;
-
-                //Timer till go to random point (Idle for a psuedo random amount of time)
-                StartCoroutine(IdleMotionlessTimer(Random.Range(0, maxIdleTime)));
+                BecomeIdle();
             }
         }
 
@@ -79,19 +76,26 @@ public class Primate : MonoBehaviour
             if (state == PrimateState.IdleMotionless)
             {
                 anim.SetBool("Walking", false);
-                anim.SetBool("Eating", false);
             }
             else if (state == PrimateState.Eating)
             {
                 anim.SetBool("Walking", false);
-                anim.SetBool("Eating", true);
             }
             else    //state is running, going, or idle walking
             {
                 anim.SetBool("Walking", true);
-                anim.SetBool("Eating", false);
             }
         }
+    }
+
+    public void BecomeIdle()
+    {
+        agent.destination = transform.position;
+
+        state = PrimateState.IdleMotionless;
+
+        //Timer till go to random point (Idle for a psuedo random amount of time)
+        StartCoroutine(IdleMotionlessTimer(Random.Range(0, maxIdleTime)));
     }
 
     public IEnumerator IdleMotionlessTimer(float timeToSit)
@@ -154,11 +158,11 @@ public class Primate : MonoBehaviour
             state = PrimateState.GoingTowardsSomething;
 
             Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
+            Vector3 directionFromPrimate = directionOfPoint + transform.position;
 
             NavMeshHit hit;
-            NavMesh.SamplePosition(directionOfPoint, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure"));   //Get the closest point on the NavMesh
-
-            agent.destination = point;  //Set the navMeshAgent's destination
+            if(NavMesh.SamplePosition(directionFromPrimate, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure")))   //Get the closest point on the NavMesh
+                agent.destination = hit.position;  //Set the navMeshAgent's destination
         }
     }
 
@@ -173,11 +177,12 @@ public class Primate : MonoBehaviour
 
         Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
         Vector3 oppositeDirection = -directionOfPoint * runDistance;
+        Vector3 directionFromPrimate = oppositeDirection + transform.position;
 
         NavMeshHit hit;
 
         //Check if there is a close point on the navmesh
-        if (NavMesh.SamplePosition(oppositeDirection, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure")))
+        if (NavMesh.SamplePosition(directionFromPrimate, out hit, 5, ~NavMesh.GetAreaFromName("Enclosure")))
             agent.destination = hit.position;   //Set agent's destination
         else    //Try a closer point
             RunFromPoint(point, runDistance * 0.5f);
@@ -195,7 +200,8 @@ public class Primate : MonoBehaviour
         state = PrimateState.GoingTowardsSomething;
 
         NavMeshHit hit;
-        NavMesh.SamplePosition(direction.normalized * 20, out hit, 50, ~NavMesh.GetAreaFromName("Enclosure")); //Get the closest point on the NavMesh
+        if (NavMesh.SamplePosition(transform.position + direction.normalized * 20, out hit, 50, ~NavMesh.GetAreaFromName("Enclosure"))) //Get the closest point on the NavMesh
+            agent.destination = hit.position;
     }
 
     #endregion

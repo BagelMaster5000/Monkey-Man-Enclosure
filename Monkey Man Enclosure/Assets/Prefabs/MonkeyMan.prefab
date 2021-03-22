@@ -242,9 +242,9 @@ NavMeshAgent:
   m_AgentTypeID: 0
   m_Radius: 0.27
   m_Speed: 1.5
-  m_Acceleration: 15
+  m_Acceleration: 500
   avoidancePriority: 50
-  m_AngularSpeed: 999
+  m_AngularSpeed: 2000
   m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
@@ -319,6 +319,18 @@ MonoBehaviour:
     audioClip: {fileID: 8300000, guid: fd681f9a2bfc48d4bb5a1a9addaa75b0, type: 3}
     volume: 0.35
     audioSource: {fileID: 0}
+--- !u!114 &4626129624377952836
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3020244249535893272}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c730e861c39f884cb0f38779dfca605, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5900651351819086238
 GameObject:
   m_ObjectHideFlags: 0
