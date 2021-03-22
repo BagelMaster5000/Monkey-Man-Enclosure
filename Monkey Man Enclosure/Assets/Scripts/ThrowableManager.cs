@@ -34,6 +34,9 @@ public class ThrowableManager : MonoBehaviour
     int pointsInThrowArc = 20;
     // [SerializeField] float throwHeight = 2;
 
+    [Space(10)]
+    [SerializeField] LayerMask primatesLayer;
+
     [Header("Buttons")]
     [SerializeField] Toggle[] throwableButtons = new Toggle[3];
     int curThrowableSelection; // 0 Food Pellet, 1 Brick, 2 Banana
@@ -236,6 +239,16 @@ public class ThrowableManager : MonoBehaviour
             if (foodPelletsPoolIteration >= foodPelletsPool.Length)
                 foodPelletsPoolIteration = 0;
         }
+
+        StartCoroutine(FoodPelletsAffectPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator FoodPelletsAffectPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange, primatesLayer);
+        foreach (Collider primate in primatesInRange)
+            primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
     }
 
     private void ThrowBrick(float initialXVelocity, float initialYVelocity, float initialZVelocity)
@@ -252,6 +265,16 @@ public class ThrowableManager : MonoBehaviour
         bricksPoolIteration++;
         if (bricksPoolIteration >= bricksPool.Length)
             bricksPoolIteration = 0;
+
+        StartCoroutine(BrickAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator BrickAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange, primatesLayer);
+        foreach (Collider primate in primatesInRange)
+            primate.GetComponent<Primate>().RunFromPoint(throwLandingLocation, brick.affectRange * 1.2f);
     }
 
     private void ThrowBanana(float initialXVelocity, float initialYVelocity, float initialZVelocity)
@@ -268,6 +291,17 @@ public class ThrowableManager : MonoBehaviour
         bananasPoolIteration++;
         if (bananasPoolIteration >= bananasPool.Length)
             bananasPoolIteration = 0;
+
+        StartCoroutine(BananaAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator BananaAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange, primatesLayer);
+        foreach (Collider primate in primatesInRange)
+            if (primate.CompareTag("Monkey"))
+                primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
     }
     #endregion
 

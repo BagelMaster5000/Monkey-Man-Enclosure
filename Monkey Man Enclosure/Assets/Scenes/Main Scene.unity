@@ -15062,6 +15062,9 @@ MonoBehaviour:
   throwStartLoc: {fileID: 738877088}
   throwArc: {fileID: 286197387}
   throwAirTime: 1.6
+  primatesLayer:
+    serializedVersion: 2
+    m_Bits: 256
   throwableButtons:
   - {fileID: 1330573928}
   - {fileID: 866562255}
