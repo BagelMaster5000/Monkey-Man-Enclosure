@@ -16,7 +16,7 @@ public class Man : Primate
     [SerializeField] private float maxHungerLevel = 100;
     [SerializeField] private float hungerNotificationLevel = 30;
 
-    [SerializeField] private float maxAwakeLevel = 100; 
+    public float maxAwakeLevel = 100; 
     private float previousAwakeLevel = 0;
     [SerializeField, Range(1, 10), Tooltip("How much time needs to pass after losing sleep before the man regains sleep")]
     private float regainSleepCooldown;
@@ -35,6 +35,8 @@ public class Man : Primate
         hungerIcon.gameObject.SetActive(false);
 
         awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
+
+        StartCoroutine(RefreshingAwakeBar());
 
         base.Start();
     }
@@ -90,8 +92,6 @@ public class Man : Primate
 
         awakeLevel = Mathf.Max(0, awakeLevel + amount);
 
-        awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
-
         if (amount > 0)
             regainingSleep = false;
 
@@ -100,6 +100,16 @@ public class Man : Primate
         {
             //Gameover
             GameController.instance.Lose();
+        }
+    }
+
+    IEnumerator RefreshingAwakeBar()
+    {
+        while (true)
+        {
+            awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
+
+            yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
         }
     }
 

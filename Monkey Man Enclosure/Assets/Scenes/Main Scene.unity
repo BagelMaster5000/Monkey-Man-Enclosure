@@ -3976,6 +3976,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 907448346163973087, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: m_Color.b
+      value: 0.34509805
+      objectReference: {fileID: 0}
+    - target: {fileID: 907448346163973087, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: m_Color.g
+      value: 0.24705882
+      objectReference: {fileID: 0}
+    - target: {fileID: 907448346163973087, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: m_Color.r
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2678368497211731029, guid: 9d0037ff5417c814f85e353f515f5e08,
         type: 3}
       propertyPath: m_Name
@@ -20813,6 +20828,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1529195089}
     m_Modifications:
+    - target: {fileID: 3646179839448684546, guid: 44a59813bb838f644ad63c9bd1bb6c23,
+        type: 3}
+      propertyPath: poopRate
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 3646179839448684546, guid: 44a59813bb838f644ad63c9bd1bb6c23,
         type: 3}
       propertyPath: clockAnimator

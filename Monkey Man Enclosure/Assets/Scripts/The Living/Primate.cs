@@ -23,7 +23,7 @@ public class Primate : MonoBehaviour
     [SerializeField] private float idleWalkDistance = 1f;
 
     float durationOfFoodAttraction = 4.5f;
-    float timeToStopGoingTowardFood;
+    float timeToStopGoingTowardsSomething;
 
     [Header("Sound Helpers")]
     public GameObject SeeFoodObject;
@@ -70,7 +70,7 @@ public class Primate : MonoBehaviour
             }
         }
 
-        if (state == PrimateState.GoingTowardsSomething && Time.time > timeToStopGoingTowardFood)
+        if (state == PrimateState.GoingTowardsSomething && Time.time > timeToStopGoingTowardsSomething)
             BecomeIdle();
 
 
@@ -159,7 +159,7 @@ public class Primate : MonoBehaviour
             if (state == PrimateState.GoingTowardsSomething && agent.remainingDistance < Vector3.Distance(point, transform.position))
                 return;
 
-            timeToStopGoingTowardFood = Time.time + durationOfFoodAttraction;
+            timeToStopGoingTowardsSomething = Time.time + durationOfFoodAttraction;
 
             //Play Monkey sounds (see food)
             PlaySound(seeFoods);
@@ -203,6 +203,8 @@ public class Primate : MonoBehaviour
         //Direction should be a unit direction towards where the camera is
 
         StopAllCoroutines();
+
+        timeToStopGoingTowardsSomething = Time.time + durationOfFoodAttraction;
 
         //Play Monkey Sounds (whistle)
         PlaySound(seeFoods);
