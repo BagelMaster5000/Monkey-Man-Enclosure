@@ -9,6 +9,11 @@ public class TitleScreen : MonoBehaviour
         NextSceneFader.instance.FadeToNextScene("Main Scene", true);
     }
 
+    public void GoToOptions()
+    {
+        NextSceneFader.instance.FadeToNextScene("Options Scene", true);
+    }
+
     public void ExitGame()
     {
 #if UNITY_EDITOR
