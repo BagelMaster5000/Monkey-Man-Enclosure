@@ -24,6 +24,7 @@ public class ThrowableManager : MonoBehaviour
     [SerializeField] Transform AOECircleTransform;
     [SerializeField] LineRenderer AOECircle;
     int pointsInAOECircle = 30;
+    const float CIRCLE_ADJUSTMENT_FACTOR = 1.3f;
     float AOECircleRotationSpeed = 15;
     [SerializeField] Bounds AOECircleClampingBounds;
 
@@ -105,7 +106,6 @@ public class ThrowableManager : MonoBehaviour
     }
     #endregion
 
-
     #region Tracking
     IEnumerator Tracking()
     {
@@ -123,28 +123,67 @@ public class ThrowableManager : MonoBehaviour
                 DrawPreviewThrowArc();
             }
 
-            // Checking if thrown
+
             if (Input.GetButtonDown("Fire1"))
             {
-                tracking = false;
-                Throw();
-                break;
+                if ((Input.mousePosition.x <= Screen.width / 6 &&
+                        Input.mousePosition.y >= Screen.height / 4) ||
+                    (Input.mousePosition.x > Screen.width / 6 && Input.mousePosition.x <= Screen.width / 3 &&
+                        Input.mousePosition.y >= Screen.height / 5) ||
+                    (Input.mousePosition.x > Screen.width / 3 && Input.mousePosition.x <= Screen.width / 5 * 3 &&
+                        Input.mousePosition.y >= Screen.height / 6) ||
+                    (Input.mousePosition.x > Screen.width / 5 * 3)) // Checking if not over a UI button 
+                {
+                    tracking = false;
+                    Throw();
+                    break;
+                }
+                else
+                {
+                    tracking = false;
+                    targetingVisual.SetActive(false);
+                    TurnOffAllThrowableButtons();
+                    break;
+                }
             }
             else
                 yield return null;
+
+            //print(hit.collider.name);
+
+            //// Checking if thrown
+            //if (Input.GetButtonDown("Fire1") && hit.collider.gameObject.layer != uiLayer)
+            //{
+            //    tracking = false;
+            //    Throw();
+            //    break;
+            //}
+            //else
+            //    yield return null;
         }
+    }
+
+    private void SetAOECenterPos(RaycastHit hit)
+    {
+        AOECircleCenterLoc.position =
+            Vector3.up * hit.point.y +
+            Vector3.right * Mathf.Clamp(hit.point.x, AOECircleClampingBounds.min.x, AOECircleClampingBounds.max.x) +
+            Vector3.forward * Mathf.Clamp(hit.point.z, AOECircleClampingBounds.min.z, AOECircleClampingBounds.max.z);
     }
 
     private void DrawAOECircle(float sizeOfCircle)
     {
+        //Debug
+        //Gizmos.DrawWireSphere(AOECircleCenterLoc.position, sizeOfCircle);
+
         targetingVisual.SetActive(true);
 
         AOECircle.positionCount = pointsInAOECircle + 2;
         float angle = 0;
         for (int i = 0; i < pointsInAOECircle + 2; i++)
         {
-            float x = Mathf.Cos(angle) * sizeOfCircle;
-            float z = Mathf.Sin(angle) * sizeOfCircle;
+            float x = Mathf.Cos(angle) * (sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR);
+            float z = Mathf.Sin(angle) * (sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR);
 
             AOECircle.SetPosition(i, new Vector3(x, 0, z));
 
@@ -155,14 +194,6 @@ public class ThrowableManager : MonoBehaviour
     private void RotateAOECircle()
     {
         AOECircleTransform.Rotate(Vector3.up, Time.deltaTime * AOECircleRotationSpeed);
-    }
-
-    private void SetAOECenterPos(RaycastHit hit)
-    {
-        AOECircleCenterLoc.position =
-            Vector3.up * hit.point.y +
-            Vector3.right * Mathf.Clamp(hit.point.x, AOECircleClampingBounds.min.x, AOECircleClampingBounds.max.x) +
-            Vector3.forward * Mathf.Clamp(hit.point.z, AOECircleClampingBounds.min.z, AOECircleClampingBounds.max.z);
     }
 
     void DrawPreviewThrowArc()

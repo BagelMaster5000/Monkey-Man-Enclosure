@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a1399f1f9701fd4c878cdd754bfde6b, type: 3}
   m_Name: Brick
   m_EditorClassIdentifier: 
-  affectRange: 4
+  affectRange: 2.5
