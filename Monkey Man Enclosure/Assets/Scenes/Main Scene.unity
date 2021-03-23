@@ -3976,6 +3976,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 392506714385373744, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 686429367503251276, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 907448346163973087, guid: 9d0037ff5417c814f85e353f515f5e08,
         type: 3}
       propertyPath: m_Color.b
@@ -3990,6 +4000,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Color.r
       value: 0.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2070752734172267482, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2678368497211731029, guid: 9d0037ff5417c814f85e353f515f5e08,
         type: 3}
@@ -4050,6 +4065,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4916037509945736897, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5826691351202207291, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7151693536135682540, guid: 9d0037ff5417c814f85e353f515f5e08,
+        type: 3}
+      propertyPath: sound.volume
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9d0037ff5417c814f85e353f515f5e08, type: 3}
@@ -18146,9 +18176,9 @@ MonoBehaviour:
   standardMusic:
     audioSource: {fileID: 0}
     musicTrack: {fileID: 8300000, guid: 4e14f26d829912f4ab0f6b80ac7309a1, type: 3}
-    volume: 0.5
+    volume: 0.75
   fadeIn: 1
-  fadeInDuration: 1
+  fadeInDuration: 0.1
   alternativeMusic:
     audioSource: {fileID: 0}
     musicTrack: {fileID: 0}
