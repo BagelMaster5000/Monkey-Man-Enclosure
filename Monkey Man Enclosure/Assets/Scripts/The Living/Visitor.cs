@@ -30,11 +30,6 @@ public class Visitor : MonoBehaviour
     [SerializeField, Range(0, 10), Tooltip("Chance a brick is thrown. If the chances total more than 10, this will reset to 4.")]
     private float chanceForBrick = 4;
 
-    [Header("Throw Times")]
-    [SerializeField] private float maxTimeUntilThrow;
-    private float timeUntilThrow;
-    [SerializeField] private float throwDuration = 3f;
-
     [Header("Throwing")]
     [SerializeField] GameObject targetingVisual;
     [SerializeField] LayerMask primatesLayer;
