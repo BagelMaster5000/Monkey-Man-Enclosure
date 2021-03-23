@@ -166,6 +166,7 @@ public class Primate : MonoBehaviour
 
 
             state = PrimateState.GoingTowardsSomething;
+            UpdateAnim();
 
             Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
             Vector3 directionFromPrimate = directionOfPoint + transform.position;
@@ -184,6 +185,7 @@ public class Primate : MonoBehaviour
         PlaySound(screams);
 
         state = PrimateState.RunningFromSomething;
+        UpdateAnim();
 
         Vector3 directionOfPoint = point - transform.position;  //Get direction from monkey to point
         Vector3 oppositeDirection = -directionOfPoint * runDistance;
@@ -202,7 +204,7 @@ public class Primate : MonoBehaviour
     {
         //Direction should be a unit direction towards where the camera is
 
-        StopAllCoroutines();
+        StopCoroutine("IdleMotionlessTimer");
 
         timeToStopGoingTowardsSomething = Time.time + durationOfFoodAttraction;
 
@@ -210,6 +212,7 @@ public class Primate : MonoBehaviour
         PlaySound(seeFoods);
 
         state = PrimateState.GoingTowardsSomething;
+        UpdateAnim();
 
         NavMeshHit hit;
         if (NavMesh.SamplePosition(transform.position + direction.normalized * 20, out hit, 50, ~NavMesh.GetAreaFromName("Enclosure"))) //Get the closest point on the NavMesh
