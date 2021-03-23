@@ -28,14 +28,11 @@ public class ThrowableManager : MonoBehaviour
     float AOECircleRotationSpeed = 15;
     [SerializeField] Bounds AOECircleClampingBounds;
 
-    [Space(10)]
+    [Header("Throwing")]
     [SerializeField] Transform throwStartLoc;
     [SerializeField] LineRenderer throwArc;
     [SerializeField] float throwAirTime = 2;
     int pointsInThrowArc = 20;
-    // [SerializeField] float throwHeight = 2;
-
-    [Space(10)]
     [SerializeField] LayerMask primatesLayer;
 
     [Header("Buttons")]
@@ -179,8 +176,8 @@ public class ThrowableManager : MonoBehaviour
         float angle = 0;
         for (int i = 0; i < pointsInAOECircle + 2; i++)
         {
-            float x = Mathf.Cos(angle) * (sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR);
-            float z = Mathf.Sin(angle) * (sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR);
+            float x = Mathf.Cos(angle) * sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR;
+            float z = Mathf.Sin(angle) * sizeOfCircle * CIRCLE_ADJUSTMENT_FACTOR;
 
             AOECircle.SetPosition(i, new Vector3(x, 0, z));
 

@@ -6,8 +6,8 @@ using UnityEngine.AI;
 public class Visitor : MonoBehaviour
 {
     [Header("Visitor")]
-    public GameObject throwablePrefab;
     public bool disruptor = false;
+    //public GameObject throwablePrefab;
 
     [Header("NavMesh Helpers")]
     public Transform destination;
@@ -37,13 +37,17 @@ public class Visitor : MonoBehaviour
 
     [Header("Throwing")]
     [SerializeField] GameObject targetingVisual;
+    [SerializeField] LayerMask primatesLayer;
+    [SerializeField] float throwingRangeBorderAmt = 0;
+    float maxTargetingMovingAmt = 2;
 
     [Space(10)]
     [SerializeField] Transform AOECircleCenterLoc;
     [SerializeField] Transform AOECircleTransform;
     [SerializeField] LineRenderer AOECircle;
     int pointsInAOECircle = 30;
-    float AOECircleRotationSpeed = 15;
+    const float CIRCLE_ADJUSTMENT_FACTOR = 1.3f;
+    float AOECircleRotationSpeed = -15;
     [SerializeField] Bounds aimingBounds;
 
     [Space(10)]
@@ -109,13 +113,13 @@ public class Visitor : MonoBehaviour
         agent.destination = point;  //Set the navMeshAgent's destination
     }
 
-    #region Throwing
-    public void StartThrowing(float trackingTime)
+    #region Targeting
+    public void StartTargeting(float trackingTime)
     {
-        StartCoroutine(Throwing(trackingTime));
+        StartCoroutine(Targeting(trackingTime));
     }
 
-    public IEnumerator Throwing(float trackingTime)
+    public IEnumerator Targeting(float trackingTime)
     {
         int itemToThrow = Random.Range(0, 3); // 0 Food Pellets, 1 Brick, 2 Banana
 
@@ -134,11 +138,16 @@ public class Visitor : MonoBehaviour
 
         float initialXVelocity, initialYVelocity, initialZVelocity;
         float timeToStopTracking = Time.time + trackingTime;
+        Vector3 randomDirectionToMove = new Vector3(Random.Range(-1.0f, 1.0f), 0, Random.Range(-1.0f, 1.0f));
         while (Time.time < timeToStopTracking)
         {
+            //MoveThrowLocation(ref throwLocation, randomDirectionToMove);
             AOECircleCenterLoc.position = throwLocation;
 
-            DrawThrowArc(out initialXVelocity, out initialYVelocity, out initialZVelocity);
+
+            RotateAOECircle();
+            DrawPreviewThrowArc(out initialXVelocity, out initialYVelocity, out initialZVelocity);
+
 
             yield return null;
         }
@@ -148,14 +157,34 @@ public class Visitor : MonoBehaviour
         targetingVisual.SetActive(false);
     }
 
+    private void MoveThrowLocation(ref Vector3 throwLocation, Vector3 randomDirectionToMove)
+    {
+        throwLocation += randomDirectionToMove * Time.deltaTime * maxTargetingMovingAmt;
+        throwLocation = new Vector3(
+            Mathf.Clamp(throwLocation.x,
+                aimingBounds.center.x - aimingBounds.extents.x + throwingRangeBorderAmt,
+                aimingBounds.center.x + aimingBounds.extents.x - throwingRangeBorderAmt),
+            aimingBounds.center.y,
+            Mathf.Clamp(throwLocation.z,
+                aimingBounds.center.z - aimingBounds.extents.z + throwingRangeBorderAmt,
+                aimingBounds.center.z + aimingBounds.extents.z - throwingRangeBorderAmt));
+
+        maxTargetingMovingAmt *= 0.99f;
+    }
+
+    private void RotateAOECircle()
+    {
+        AOECircleTransform.Rotate(Vector3.up, AOECircleRotationSpeed * Time.deltaTime);
+    }
+
     private Vector3 CalculateThrowLocation(float affectRange)
     {
         return new Vector3(
-            Random.Range(aimingBounds.center.x - aimingBounds.extents.x + affectRange,
-                aimingBounds.center.x + aimingBounds.extents.x - affectRange),
+            Random.Range(aimingBounds.center.x - aimingBounds.extents.x + throwingRangeBorderAmt,
+                aimingBounds.center.x + aimingBounds.extents.x - throwingRangeBorderAmt),
             aimingBounds.center.y,
-            Random.Range(aimingBounds.center.z - aimingBounds.extents.z + affectRange,
-                aimingBounds.center.z + aimingBounds.extents.z - affectRange));
+            Random.Range(aimingBounds.center.z - aimingBounds.extents.z + throwingRangeBorderAmt,
+                aimingBounds.center.z + aimingBounds.extents.z - throwingRangeBorderAmt));
     }
 
     private void DrawThrowAOECircle(float affectRange)
@@ -164,8 +193,8 @@ public class Visitor : MonoBehaviour
         float angle = 0;
         for (int i = 0; i < pointsInAOECircle + 2; i++)
         {
-            float x = Mathf.Cos(angle) * affectRange;
-            float z = Mathf.Sin(angle) * affectRange;
+            float x = Mathf.Cos(angle) * affectRange * CIRCLE_ADJUSTMENT_FACTOR;
+            float z = Mathf.Sin(angle) * affectRange * CIRCLE_ADJUSTMENT_FACTOR;
 
             AOECircle.SetPosition(i, new Vector3(x, 0, z));
 
@@ -173,7 +202,7 @@ public class Visitor : MonoBehaviour
         }
     }
 
-    private void DrawThrowArc(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity)
+    private void DrawPreviewThrowArc(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity)
     {
         CalculateInitialThrowVelocities(out initialXVelocity, out initialYVelocity, out initialZVelocity);
 
@@ -191,7 +220,9 @@ public class Visitor : MonoBehaviour
             simulatedElapsedTime += throwAirTime / pointsInThrowArc;
         }
     }
+    #endregion
 
+    #region Throwing
     private void Throw(int itemToThrow)
     {
         CalculateInitialThrowVelocities(out float initialXVelocity, out float initialYVelocity, out float initialZVelocity);
@@ -235,11 +266,26 @@ public class Visitor : MonoBehaviour
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer));
+            itemToThrow.angularDrag = 1;
+            itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+            itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
             foodPelletsPoolIteration++;
             if (foodPelletsPoolIteration >= throwablesPool.foodPelletsPool.Length)
                 foodPelletsPoolIteration = 0;
+
+            StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
         }
+
+        StartCoroutine(FoodPelletsAffectPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator FoodPelletsAffectPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        foreach (Collider primate in primatesInRange)
+            primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
     }
 
     private void ThrowBrick(float initialXVelocity, float initialYVelocity, float initialZVelocity)
@@ -250,10 +296,24 @@ public class Visitor : MonoBehaviour
         itemToThrow.transform.position = throwStartLoc.position;
         itemToThrow.useGravity = true;
         itemToThrow.velocity = new Vector3(initialXVelocity, initialYVelocity, initialZVelocity);
+        itemToThrow.angularDrag = 1;
+        itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+        itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
         bricksPoolIteration++;
         if (bricksPoolIteration >= throwablesPool.bricksPool.Length)
             bricksPoolIteration = 0;
+
+        StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
+        StartCoroutine(BrickAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator BrickAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        foreach (Collider primate in primatesInRange)
+            primate.GetComponent<Primate>().RunFromPoint(throwLandingLocation, brick.affectRange * 1.2f);
     }
 
     private void ThrowBanana(float initialXVelocity, float initialYVelocity, float initialZVelocity)
@@ -264,10 +324,32 @@ public class Visitor : MonoBehaviour
         itemToThrow.transform.position = throwStartLoc.position;
         itemToThrow.useGravity = true;
         itemToThrow.velocity = new Vector3(initialXVelocity, initialYVelocity, initialZVelocity);
+        itemToThrow.angularDrag = 1;
+        itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+        itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
         bananasPoolIteration++;
         if (bananasPoolIteration >= throwablesPool.bananasPool.Length)
             bananasPoolIteration = 0;
+
+        StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
+        StartCoroutine(BananaAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
+    }
+    IEnumerator BananaAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        foreach (Collider primate in primatesInRange)
+            if (primate.CompareTag("Monkey"))
+                primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
+    }
+
+    IEnumerator SolidifyItemOnceLanded(Rigidbody itemThrown)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        itemThrown.angularDrag = 250;
     }
     #endregion
 

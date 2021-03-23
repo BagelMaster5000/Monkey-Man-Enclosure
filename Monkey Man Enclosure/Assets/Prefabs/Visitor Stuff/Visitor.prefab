@@ -573,7 +573,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7d35f0a7405c264cb6f4c782425ac76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  throwablePrefab: {fileID: 0}
   disruptor: 0
   destination: {fileID: 0}
   state: 0
@@ -586,6 +585,9 @@ MonoBehaviour:
   maxTimeUntilThrow: 0
   throwDuration: 3
   targetingVisual: {fileID: 2666280481566561277}
+  primatesLayer:
+    serializedVersion: 2
+    m_Bits: 256
   AOECircleCenterLoc: {fileID: 3207167328871699896}
   AOECircleTransform: {fileID: 8972237431120097442}
   AOECircle: {fileID: 5637579960602769836}
@@ -594,7 +596,7 @@ MonoBehaviour:
     m_Extent: {x: 5, y: 0, z: 4}
   throwStartLoc: {fileID: 3487906927334726823}
   throwArc: {fileID: 7746766825975974428}
-  throwAirTime: 2
+  throwAirTime: 0.8
   walkingAnimator: {fileID: 4803074794313260733}
   walkingSpeedThreshold: 0.2
   throwWooshSFX: {fileID: 8503462826748558718}
