@@ -173,9 +173,6 @@ public class ThrowableManager : MonoBehaviour
 
     private void DrawAOECircle(float sizeOfCircle)
     {
-        //Debug
-        //Gizmos.DrawWireSphere(AOECircleCenterLoc.position, sizeOfCircle);
-
         targetingVisual.SetActive(true);
 
         AOECircle.positionCount = pointsInAOECircle + 2;
@@ -282,7 +279,7 @@ public class ThrowableManager : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange, primatesLayer);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
     }
@@ -312,7 +309,7 @@ public class ThrowableManager : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange, primatesLayer);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             primate.GetComponent<Primate>().RunFromPoint(throwLandingLocation, brick.affectRange * 1.2f);
     }
@@ -342,7 +339,7 @@ public class ThrowableManager : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange, primatesLayer);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             if (primate.CompareTag("Monkey"))
                 primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
