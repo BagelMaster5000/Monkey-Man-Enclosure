@@ -137,6 +137,10 @@ public class GameController : MonoBehaviour
 
     public void Whistle()
     {
+        foreach (Monkey monkey in monkeys)
+            monkey.GoToWhistle(Vector3.back);
+        man.GoToWhistle(Vector3.back);
+
         if (Random.Range(0.0f, 1.0f) <= badWhistleChance)
             whistleBadSFX.Play();
         else

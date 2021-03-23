@@ -14742,7 +14742,7 @@ MonoBehaviour:
   winLoseMenu: {fileID: 0}
   monkeyPrefab: {fileID: 2026472565911791268, guid: 3a4b3737f94e685419bf05939f21e18d,
     type: 3}
-  manTransform: {fileID: 0}
+  manTransform: {fileID: 1734798274}
   primateSpawnBounds:
     m_Center: {x: 0, y: 7.878498, z: -14}
     m_Extent: {x: 4.5, y: 0, z: 4.5}
@@ -17222,6 +17222,12 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2717588689793857577, guid: d5e7288bac414d64a9e57a6e0f0ee61d,
     type: 3}
   m_PrefabInstance: {fileID: 1296793282}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1734798274 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2678368497211731039, guid: 9d0037ff5417c814f85e353f515f5e08,
+    type: 3}
+  m_PrefabInstance: {fileID: 482720698}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1736894481
 GameObject:

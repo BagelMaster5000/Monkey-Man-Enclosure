@@ -9,6 +9,6 @@ PhysicMaterial:
   m_Name: Food Pellet
   dynamicFriction: 33.84
   staticFriction: 2.91
-  bounciness: 0.25
+  bounciness: 0.15
   frictionCombine: 0
   bounceCombine: 0
