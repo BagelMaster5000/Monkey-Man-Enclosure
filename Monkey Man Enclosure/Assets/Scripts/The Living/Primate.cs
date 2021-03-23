@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(NavMeshAgent))]
 public class Primate : MonoBehaviour
 {
-    public enum PrimateState { IdleMotionless, IdleWalking, RunningFromSomething, GoingTowardsSomething, Eating }
+    public enum PrimateState { IdleMotionless, IdleWalking, RunningFromSomething, GoingTowardsSomething, Eating , Whistled}
 
     [HideInInspector] public PrimateState state;
 
@@ -64,7 +64,7 @@ public class Primate : MonoBehaviour
                 //Make primate eat
                 anim.SetTrigger("Eating");
             }
-            else if(state == PrimateState.RunningFromSomething || state == PrimateState.IdleWalking)    //Go to motionless
+            else if(state == PrimateState.RunningFromSomething || state == PrimateState.IdleWalking || state == PrimateState.Whistled)    //Go to motionless
             {
                 BecomeIdle();
             }
@@ -81,11 +81,7 @@ public class Primate : MonoBehaviour
     {
         if (anim != null)
         {
-            if (state == PrimateState.IdleMotionless)
-            {
-                anim.SetBool("Walking", false);
-            }
-            else if (state == PrimateState.Eating)
+            if (state == PrimateState.IdleMotionless || state == PrimateState.Eating)
             {
                 anim.SetBool("Walking", false);
             }
@@ -211,7 +207,7 @@ public class Primate : MonoBehaviour
         //Play Monkey Sounds (whistle)
         PlaySound(seeFoods);
 
-        state = PrimateState.GoingTowardsSomething;
+        state = PrimateState.Whistled;
         UpdateAnim();
 
         NavMeshHit hit;
