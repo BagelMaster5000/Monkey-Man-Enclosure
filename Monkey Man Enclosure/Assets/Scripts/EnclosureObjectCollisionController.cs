@@ -2,23 +2,29 @@
 using UnityEngine;
 
 [RequireComponent(typeof(SoundPlayer))]
+[RequireComponent(typeof(Rigidbody))]
 public class EnclosureObjectCollisionController : MonoBehaviour
 {
     SoundPlayer collisionSFX;
     bool collidedOnce = false;
 
     [SerializeField] float disappearDelay = 7;
+    Rigidbody rb;
+    LayerMask throwableSurface;
 
     private void OnEnable()
     {
         collidedOnce = false;
         StopAllCoroutines();
         StartCoroutine(ShrinkIntoNonexistenceAfterDelay());
+        rb.constraints = RigidbodyConstraints.None;
     }
 
     private void Awake()
     {
+        throwableSurface = LayerMask.NameToLayer("ThrowableSurface");
         collisionSFX = GetComponent<SoundPlayer>();
+        rb = GetComponent<Rigidbody>();
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -29,6 +35,9 @@ public class EnclosureObjectCollisionController : MonoBehaviour
 
             collisionSFX.Play();
         }
+
+        if (collision.gameObject.layer == throwableSurface)
+            rb.constraints = RigidbodyConstraints.FreezePositionX | RigidbodyConstraints.FreezePositionZ;
     }
 
     IEnumerator ShrinkIntoNonexistenceAfterDelay()

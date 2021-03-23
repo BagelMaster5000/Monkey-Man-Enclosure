@@ -49,7 +49,9 @@ public class Monkey : Primate
         //Launch the poop
         Vector3 randomPos = Random.insideUnitSphere;
         randomPos.y = 0;
-        body.AddExplosionForce(50f, body.transform.position + Vector3.down + randomPos, 5, 10f, ForceMode.Acceleration);
+        //body.AddExplosionForce(50f, body.transform.position + Vector3.down + randomPos, 5, 10f, ForceMode.Acceleration);
+        body.AddForce(Vector3.up * 10 + randomPos * 5, ForceMode.Impulse);
+        body.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
     }
 
 
