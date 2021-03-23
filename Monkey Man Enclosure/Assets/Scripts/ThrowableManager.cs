@@ -234,10 +234,15 @@ public class ThrowableManager : MonoBehaviour
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer),
                     Random.Range(-pelletsThrowRandomizer, pelletsThrowRandomizer));
+            itemToThrow.angularDrag = 1;
+            itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+            itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
             foodPelletsPoolIteration++;
             if (foodPelletsPoolIteration >= foodPelletsPool.Length)
                 foodPelletsPoolIteration = 0;
+
+            StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
         }
 
         StartCoroutine(FoodPelletsAffectPrimatesAfterDelay(AOECircleCenterLoc.position));
@@ -261,11 +266,15 @@ public class ThrowableManager : MonoBehaviour
         itemToThrow.transform.position = throwStartLoc.position;
         itemToThrow.useGravity = true;
         itemToThrow.velocity = new Vector3(initialXVelocity, initialYVelocity, initialZVelocity);
+        itemToThrow.angularDrag = 1;
+        itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+        itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
         bricksPoolIteration++;
         if (bricksPoolIteration >= bricksPool.Length)
             bricksPoolIteration = 0;
 
+        StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
         StartCoroutine(BrickAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
     }
     IEnumerator BrickAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
@@ -287,11 +296,15 @@ public class ThrowableManager : MonoBehaviour
         itemToThrow.transform.position = throwStartLoc.position;
         itemToThrow.useGravity = true;
         itemToThrow.velocity = new Vector3(initialXVelocity, initialYVelocity, initialZVelocity);
+        itemToThrow.angularDrag = 1;
+        itemToThrow.rotation = Quaternion.Euler(Random.Range(0, 360), Random.Range(0, 360), Random.Range(0, 360));
+        itemToThrow.AddRelativeTorque(Vector3.down * 50000, ForceMode.Impulse);
 
         bananasPoolIteration++;
         if (bananasPoolIteration >= bananasPool.Length)
             bananasPoolIteration = 0;
 
+        StartCoroutine(SolidifyItemOnceLanded(itemToThrow));
         StartCoroutine(BananaAffectsPrimatesAfterDelay(AOECircleCenterLoc.position));
     }
     IEnumerator BananaAffectsPrimatesAfterDelay(Vector3 throwLandingLocation)
@@ -302,6 +315,13 @@ public class ThrowableManager : MonoBehaviour
         foreach (Collider primate in primatesInRange)
             if (primate.CompareTag("Monkey"))
                 primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
+    }
+
+    IEnumerator SolidifyItemOnceLanded(Rigidbody itemThrown)
+    {
+        yield return new WaitForSeconds(throwAirTime);
+
+        itemThrown.angularDrag = 250;
     }
     #endregion
 
