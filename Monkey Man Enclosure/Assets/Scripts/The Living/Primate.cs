@@ -142,7 +142,8 @@ public class Primate : MonoBehaviour
     public virtual void Poop()
     {
         //Create a piece of poop where the primate is
-        Instantiate(poopPrefab, transform.position, Quaternion.identity);
+        Instantiate(poopPrefab, transform.position,
+            Quaternion.Euler(Random.Range(-15, 15), Random.Range(160, 200), Random.Range(-15, 15)));
     }
 
     #region Monkey Interuptions

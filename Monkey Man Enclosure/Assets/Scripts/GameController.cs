@@ -139,7 +139,7 @@ public class GameController : MonoBehaviour
     {
         foreach (Monkey monkey in monkeys)
             monkey.GoToWhistle(Vector3.back);
-        man.GoToWhistle(Vector3.back);
+        man.awakeLevel = (100 - man.awakeLevel) / 4 + 25;
 
         if (Random.Range(0.0f, 1.0f) <= badWhistleChance)
             whistleBadSFX.Play();
