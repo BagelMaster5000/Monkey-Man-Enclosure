@@ -244,6 +244,7 @@ public class ThrowableManager : MonoBehaviour
         Rigidbody itemToThrow;
         for (int x = 0; x < numFoodPelletsToThrow; x++)
         {
+            foodPelletsPool[foodPelletsPoolIteration].SetActive(false);
             foodPelletsPool[foodPelletsPoolIteration].SetActive(true);
             itemToThrow = foodPelletsPool[foodPelletsPoolIteration].GetComponent<Rigidbody>();
             itemToThrow.transform.position =
@@ -286,6 +287,7 @@ public class ThrowableManager : MonoBehaviour
         PlayerInventory.instance.SubBrick();
 
         Rigidbody itemToThrow;
+        bricksPool[bricksPoolIteration].SetActive(false);
         bricksPool[bricksPoolIteration].SetActive(true);
         itemToThrow = bricksPool[bricksPoolIteration].GetComponent<Rigidbody>();
         itemToThrow.transform.position = throwStartLoc.position;
@@ -316,6 +318,7 @@ public class ThrowableManager : MonoBehaviour
         PlayerInventory.instance.SubBanana();
 
         Rigidbody itemToThrow;
+        bananasPool[bananasPoolIteration].SetActive(false);
         bananasPool[bananasPoolIteration].SetActive(true);
         itemToThrow = bananasPool[bananasPoolIteration].GetComponent<Rigidbody>();
         itemToThrow.transform.position = throwStartLoc.position;
