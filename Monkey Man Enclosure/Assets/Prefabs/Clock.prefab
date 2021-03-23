@@ -45,8 +45,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hourDuration: 60
   visitorFrequency: 3
-  hungerRate: 5
-  hungerAmount: 40
+  hungerRate: 1
+  hungerAmount: 1
   poopRate: 5
   time: 0
   visitorPrefab: {fileID: 5538439478328932086, guid: db9759b928a971e44a754cc49e8b5a04,
