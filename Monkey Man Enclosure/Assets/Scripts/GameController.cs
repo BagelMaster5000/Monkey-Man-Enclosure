@@ -51,6 +51,9 @@ public class GameController : MonoBehaviour
             SpawnMonkeys();
 
         StartCoroutine(RefreshingWhistleButtonState());
+
+        //Set the volume
+        AudioListener.volume = GameManager.soundSettings;
     }
 
     private void PositionMan()
