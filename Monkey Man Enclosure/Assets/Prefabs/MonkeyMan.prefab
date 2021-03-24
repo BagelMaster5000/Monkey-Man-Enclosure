@@ -1,5 +1,54 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1543113791
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1543113792}
+  - component: {fileID: 1543113794}
+  m_Layer: 8
+  m_Name: WakingUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1543113792
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543113791}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1658986488098782070}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1543113794
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1543113791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0461d026c085fed4b9df3aabf668de4e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  man: {fileID: 2678368497211731038}
+  alarm:
+    name: Sound
+    audioClip: {fileID: 8300000, guid: 2c903a11729000242827a38fe9b7bfdf, type: 3}
+    volume: 0.5
+    audioSource: {fileID: 0}
 --- !u!1 &511071825562624439
 GameObject:
   m_ObjectHideFlags: 0
@@ -48,7 +97,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: e1ff8bcdc284349488f823146d371eaa, type: 3}
-    volume: 0.5
+    volume: 0
     audioSource: {fileID: 0}
 --- !u!114 &4916037509945736897
 MonoBehaviour:
@@ -65,7 +114,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: 56b0eeaf31f094c45b58566a26b0054c, type: 3}
-    volume: 0.5
+    volume: 0
     audioSource: {fileID: 0}
 --- !u!114 &5826691351202207291
 MonoBehaviour:
@@ -82,7 +131,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: b9dbb244efcdd7648b9a91eb837f5f49, type: 3}
-    volume: 0.5
+    volume: 0
     audioSource: {fileID: 0}
 --- !u!1 &2319441760445568680
 GameObject:
@@ -114,6 +163,7 @@ Transform:
   - {fileID: 5189962891094177533}
   - {fileID: 371095201623113775}
   - {fileID: 4699878776252107402}
+  - {fileID: 1543113792}
   m_Father: {fileID: 2678368497211731039}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -163,7 +213,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: 2ec5842b4b8076d4a99f15e04ac19dd2, type: 3}
-    volume: 0.5
+    volume: 0.25
     audioSource: {fileID: 0}
 --- !u!1 &2678368497211731029
 GameObject:
@@ -217,17 +267,20 @@ MonoBehaviour:
   state: 0
   poopPrefab: {fileID: 3953068678344813830, guid: d38413c4e933a3742871453a44fb1050,
     type: 3}
-  minIdleTime: 2
-  maxIdleTime: 5
-  idleWalkDistance: 4
+  minIdleTime: 1
+  maxIdleTime: 3
+  idleWalkDistance: 5
   SeeFoodObject: {fileID: 8404018166296013844}
   ScreamObject: {fileID: 511071825562624439}
   eatingSound: {fileID: 8186664003002673838}
   canvas: {fileID: 8957717453981055136}
-  hungerIcon: {fileID: 1372459386193942312}
+  hungerIcon: {fileID: 8861256243311734004}
   awakeBar: {fileID: 907448346163973087}
   maxHungerLevel: 100
+  portionOfHungerToFillWhenEating: 0.2
+  hungerRestorationAmount: 10
   hungerNotificationLevel: 30
+  extremeHungerNotificationLevel: 15
   maxAwakeLevel: 100
   regainSleepCooldown: 5
   hungerLevel: 0
@@ -390,7 +443,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9843138, g: 0.73333335, b: 0.6784314, a: 1}
+  m_Color: {r: 0.2, g: 0.24705882, b: 0.34509805, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -454,7 +507,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: ed9c87f8d0ebc3e4baf53be298c3a287, type: 3}
-    volume: 0.5
+    volume: 0.1
     audioSource: {fileID: 0}
 --- !u!114 &686429367503251276
 MonoBehaviour:
@@ -471,7 +524,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
-    volume: 0.5
+    volume: 0.1
     audioSource: {fileID: 0}
 --- !u!114 &7151693536135682540
 MonoBehaviour:
@@ -488,7 +541,7 @@ MonoBehaviour:
   sound:
     name: Sound
     audioClip: {fileID: 8300000, guid: 4b46c86b71783dc4489891062103f9eb, type: 3}
-    volume: 0.5
+    volume: 0.1
     audioSource: {fileID: 0}
 --- !u!1 &8861256243311734004
 GameObject:
@@ -517,7 +570,7 @@ RectTransform:
   m_GameObject: {fileID: 8861256243311734004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.7188, y: 1.7188, z: 1.7188}
   m_Children: []
   m_Father: {fileID: 2029557390226937539}
   m_RootOrder: 0
@@ -548,13 +601,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.2901961, g: 0.4784314, b: 0.5882353, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: b3297bafb0e37b149b04ca37aee14cb4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9f0a8e5eac07a7e43a1b9b0f9c3adaa7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

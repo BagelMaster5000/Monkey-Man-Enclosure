@@ -106,7 +106,7 @@ public class NextSceneFader : MonoBehaviour
     // Executes scene load
     public void Load()
     {
-        transform.position = Vector3.zero;
+        //transform.position = Vector3.zero;
 
         GetComponent<Animator>().SetBool("Dark", false);
         SceneManager.LoadScene(nextScene);

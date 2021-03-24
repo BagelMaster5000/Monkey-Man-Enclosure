@@ -8,13 +8,16 @@ public class Man : Primate
     [Header("Man")]
     //UI
     [SerializeField] private GameObject canvas;
-    [SerializeField] private Image hungerIcon;
+    [SerializeField] private GameObject hungerIcon;
     [SerializeField] private Image awakeBar;
     private Vector3 targetPostition;
 
     //Man
     [SerializeField] private float maxHungerLevel = 100;
+    [SerializeField] private float portionOfHungerToFillWhenEating = 0.2f;
+    [SerializeField] private float hungerRestorationAmount = 10;
     [SerializeField] private float hungerNotificationLevel = 30;
+    [SerializeField] private float extremeHungerNotificationLevel = 15;
 
     public float maxAwakeLevel = 100; 
     private float previousAwakeLevel = 0;
@@ -22,6 +25,10 @@ public class Man : Primate
     private float regainSleepCooldown;
     private bool regainingSleep = false;
     private float time = 0;
+
+
+    // Cause of death
+    private int causeOfDeath = 0; // 0 awoke, 1 starved
 
     [Header("Dev Only")]
     public float hungerLevel = 0;
@@ -37,6 +44,8 @@ public class Man : Primate
         awakeBar.fillAmount = 1 - awakeLevel / maxAwakeLevel;
 
         StartCoroutine(RefreshingAwakeBar());
+        StartCoroutine(CheckIfEating());
+        StartCoroutine(AnimatingHungerIcon());
 
         base.Start();
     }
@@ -75,12 +84,11 @@ public class Man : Primate
 
         hungerLevel = Mathf.Min(hungerLevel + amount, maxHungerLevel);
 
-        hungerIcon.gameObject.SetActive(hungerLevel <= hungerNotificationLevel);
-
         //If the Man starves
         if(hungerLevel <= 0)
         {
             //Gameover
+            causeOfDeath = 1;
             GameController.instance.Lose();
         }
     }
@@ -99,6 +107,7 @@ public class Man : Primate
         if (awakeLevel >= maxAwakeLevel)
         {
             //Gameover
+            causeOfDeath = 0;
             GameController.instance.Lose();
         }
     }
@@ -111,6 +120,52 @@ public class Man : Primate
 
             yield return new WaitForSeconds(GlobalVariables.UIRefreshInterval);
         }
+    }
+
+    IEnumerator CheckIfEating()
+    {
+        bool isEating = false;
+        while (true)
+        {
+            if (state != PrimateState.Eating)
+                isEating = false;
+            else if (!isEating && state == PrimateState.Eating)
+            {
+                isEating = true;
+                ModifyHunger((maxHungerLevel - hungerLevel) * portionOfHungerToFillWhenEating + hungerRestorationAmount);
+            }
+            yield return null;
+        }
+    }
+
+    IEnumerator AnimatingHungerIcon()
+    {
+        bool hungerIconVisibility = true;
+        while (true)
+        {
+            if (hungerLevel <= extremeHungerNotificationLevel)
+            {
+                hungerIcon.SetActive(hungerIconVisibility);
+                hungerIconVisibility = !hungerIconVisibility;
+                yield return new WaitForSeconds(0.3f);
+            }
+            else if (hungerLevel <= hungerNotificationLevel)
+            {
+                hungerIconVisibility = true;
+                hungerIcon.SetActive(hungerIconVisibility);
+                yield return new WaitForSeconds(0.1f);
+            }
+            else
+            {
+                hungerIcon.SetActive(false);
+                yield return new WaitForSeconds(0.1f);
+            }
+        }
+    }
+
+    public int GetCauseOfDeath()
+    {
+        return causeOfDeath;
     }
 
     public override void PlaySound(SoundPlayer[] soundArray)

@@ -7,7 +7,7 @@ public class GameController : MonoBehaviour
     public static GameController instance;
 
     [Header("General")]
-    public LevelSO curLevel;
+    public LevelSO[] levels;
     public enum GameState { MAINVIEW, SHOP, GAMEOVER, PAUSED };
     public GameState curGameState;
 
@@ -73,9 +73,9 @@ public class GameController : MonoBehaviour
 
     private void SpawnMonkeys()
     {
-        monkeys = new Monkey[curLevel.monkeyAmount];
+        monkeys = new Monkey[levels[GlobalVariables.curLevel].monkeyAmount];
         Vector3 spawnLocation = Vector3.one;
-        for (int n = 0; n < curLevel.monkeyAmount; n++)
+        for (int n = 0; n < levels[GlobalVariables.curLevel].monkeyAmount; n++)
         {
             // Tries to find a location that doesn't collide with another primate. Gives up after 5 attempts
             bool done = false;

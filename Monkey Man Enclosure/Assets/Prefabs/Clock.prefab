@@ -43,14 +43,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05b7f0a3575281c42a150f77894200a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hourDuration: 60
+  hourDuration: 25
   visitorFrequency: 3
   hungerRate: 1
   hungerAmount: 1
-  poopRate: 5
+  poopRate: 15
   time: 0
   visitorPrefab: {fileID: 5538439478328932086, guid: db9759b928a971e44a754cc49e8b5a04,
     type: 3}
-  startPoints: []
-  endPoints: []
+  startPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  endPoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   clockAnimator: {fileID: 0}

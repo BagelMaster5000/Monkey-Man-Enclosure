@@ -6,6 +6,7 @@ public class WinLoseMenu : MonoBehaviour
 {
     bool visible;
     [SerializeField] Transform winLoseMenu;
+    [SerializeField] Man monkeyManInGame;
     [SerializeField] GameObject monkeyManInMenu;
 
     [Header("Text")]
@@ -76,7 +77,10 @@ public class WinLoseMenu : MonoBehaviour
         else
         {
             mainText.text = ":(";
-            subText.text = "Monkey man had a heart attack...";
+            if (monkeyManInGame.GetCauseOfDeath() == 0)
+                subText.text = "Monkey man had a panic attack...";
+            else if (monkeyManInGame.GetCauseOfDeath() == 1)
+                subText.text = "Monkey man didn't get enough to eat...";
         }
     }
     #endregion

@@ -21,6 +21,7 @@ public class Visitor : MonoBehaviour
     [SerializeField] ThrowableSO foodPellets;
     [SerializeField] ThrowableSO brick;
     [SerializeField] ThrowableSO banana;
+    float affectRangeExpansionFactor = 1.3f;
 
     [Header("Throwable Type Chances")]
     [SerializeField, Range(0, 10), Tooltip("Chance a food pellet is thrown. If the chances total more than 10, this will reset to 3.")]
@@ -121,9 +122,9 @@ public class Visitor : MonoBehaviour
         float affectRange = 0;
         switch (itemToThrow)
         {
-            case 0: affectRange = foodPellets.affectRange; break;
-            case 1: affectRange = brick.affectRange; break;
-            case 2: affectRange = banana.affectRange; break;
+            case 0: affectRange = foodPellets.affectRange * affectRangeExpansionFactor; break;
+            case 1: affectRange = brick.affectRange * affectRangeExpansionFactor; break;
+            case 2: affectRange = banana.affectRange * affectRangeExpansionFactor; break;
         }
 
         Vector3 throwLocation = CalculateThrowLocation(affectRange);
@@ -152,20 +153,20 @@ public class Visitor : MonoBehaviour
         targetingVisual.SetActive(false);
     }
 
-    private void MoveThrowLocation(ref Vector3 throwLocation, Vector3 randomDirectionToMove)
-    {
-        throwLocation += randomDirectionToMove * Time.deltaTime * maxTargetingMovingAmt;
-        throwLocation = new Vector3(
-            Mathf.Clamp(throwLocation.x,
-                aimingBounds.center.x - aimingBounds.extents.x + throwingRangeBorderAmt,
-                aimingBounds.center.x + aimingBounds.extents.x - throwingRangeBorderAmt),
-            aimingBounds.center.y,
-            Mathf.Clamp(throwLocation.z,
-                aimingBounds.center.z - aimingBounds.extents.z + throwingRangeBorderAmt,
-                aimingBounds.center.z + aimingBounds.extents.z - throwingRangeBorderAmt));
+    //private void MoveThrowLocation(ref Vector3 throwLocation, Vector3 randomDirectionToMove)
+    //{
+    //    throwLocation += randomDirectionToMove * Time.deltaTime * maxTargetingMovingAmt;
+    //    throwLocation = new Vector3(
+    //        Mathf.Clamp(throwLocation.x,
+    //            aimingBounds.center.x - aimingBounds.extents.x + throwingRangeBorderAmt,
+    //            aimingBounds.center.x + aimingBounds.extents.x - throwingRangeBorderAmt),
+    //        aimingBounds.center.y,
+    //        Mathf.Clamp(throwLocation.z,
+    //            aimingBounds.center.z - aimingBounds.extents.z + throwingRangeBorderAmt,
+    //            aimingBounds.center.z + aimingBounds.extents.z - throwingRangeBorderAmt));
 
-        maxTargetingMovingAmt *= 0.99f;
-    }
+    //    maxTargetingMovingAmt *= 0.99f;
+    //}
 
     private void RotateAOECircle()
     {
@@ -278,7 +279,7 @@ public class Visitor : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, foodPellets.affectRange * affectRangeExpansionFactor, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);
     }
@@ -306,7 +307,7 @@ public class Visitor : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, brick.affectRange * affectRangeExpansionFactor, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             primate.GetComponent<Primate>().RunFromPoint(throwLandingLocation, brick.affectRange * 1.2f);
     }
@@ -334,7 +335,7 @@ public class Visitor : MonoBehaviour
     {
         yield return new WaitForSeconds(throwAirTime);
 
-        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange, primatesLayer, QueryTriggerInteraction.Ignore);
+        Collider[] primatesInRange = Physics.OverlapSphere(throwLandingLocation, banana.affectRange * affectRangeExpansionFactor, primatesLayer, QueryTriggerInteraction.Ignore);
         foreach (Collider primate in primatesInRange)
             if (primate.CompareTag("Monkey"))
                 primate.GetComponent<Primate>().GoTowardsPoint(throwLandingLocation);

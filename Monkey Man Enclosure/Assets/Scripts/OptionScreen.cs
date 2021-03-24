@@ -35,6 +35,6 @@ public class OptionScreen : MonoBehaviour
 
     public void Back()
     {
-        NextSceneFader.instance.FadeToNextScene("Title Scene", true);
+        NextSceneFader.instance.FadeToNextScene("Title Scene", false);
     }
 }

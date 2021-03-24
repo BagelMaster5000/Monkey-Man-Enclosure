@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class TitleScreen : MonoBehaviour
 {
-    public void LoadGame()
+    public void LoadGame(int difficulty)
     {
+        GlobalVariables.curLevel = difficulty;
         NextSceneFader.instance.FadeToNextScene("Main Scene", true);
     }
 
     public void GoToOptions()
     {
-        NextSceneFader.instance.FadeToNextScene("Options Scene", true);
+        NextSceneFader.instance.FadeToNextScene("Options Scene", false);
+    }
+
+    public void GoToCredits()
+    {
+        NextSceneFader.instance.FadeToNextScene("Credits Scene", false);
     }
 
     public void ExitGame()

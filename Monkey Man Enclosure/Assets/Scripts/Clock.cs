@@ -37,6 +37,7 @@ public class Clock : MonoBehaviour
     {
         nextHourTime = hourDuration;
         nextVisitorTime = visitorFrequency;
+        disruptionFrequency = hourDuration * GameController.instance.levels[GlobalVariables.curLevel].disruptionFrequency;
         nextDisruptionTime = disruptionFrequency;
         nextHungerTime = hungerRate;
         nextPoopTime = poopRate;
@@ -46,7 +47,6 @@ public class Clock : MonoBehaviour
     void Start()
     {
         //Set Disruption Frequency
-        disruptionFrequency = hourDuration * GameController.instance.curLevel.disruptionFrequency;
         visitorFrequency = hourDuration * visitorFrequency;
 
         if (hungerAmount > 0)
@@ -61,7 +61,8 @@ public class Clock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (GameController.instance.curGameState == GameController.GameState.MAINVIEW)   //Countdown only while the player is actively managing the monkey exhibit
+        if (GameController.instance.curGameState == GameController.GameState.MAINVIEW ||
+            GameController.instance.curGameState == GameController.GameState.SHOP)   //Countdown only while the player is actively managing the monkey exhibit
         {
             //Check for the hour
             if (time >= nextHourTime)
