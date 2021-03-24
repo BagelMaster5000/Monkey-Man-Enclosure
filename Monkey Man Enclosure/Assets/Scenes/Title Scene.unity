@@ -198,7 +198,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 6337855}
   m_OnClick:
     m_PersistentCalls:
@@ -1300,7 +1300,7 @@ MonoBehaviour:
     linkCount: 0
     lineCount: 1
     pageCount: 1
-    materialCount: 1
+    materialCount: 2
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
@@ -2915,7 +2915,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: v1
+  m_text: 'v2
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c49a476aea9afe743a3f7b68a01cadbe, type: 2}
   m_sharedMaterial: {fileID: -6989888740972326657, guid: c49a476aea9afe743a3f7b68a01cadbe,
@@ -2985,9 +2987,9 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1957815583}
-    characterCount: 2
+    characterCount: 3
     spriteCount: 0
-    spaceCount: 0
+    spaceCount: 1
     wordCount: 1
     linkCount: 0
     lineCount: 1

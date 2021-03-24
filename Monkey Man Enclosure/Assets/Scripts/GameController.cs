@@ -102,7 +102,7 @@ public class GameController : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && curGameState != GameState.GAMEOVER)
+        if ((Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.P)) && curGameState != GameState.GAMEOVER)
             TogglePauseVisibility();
     }
 

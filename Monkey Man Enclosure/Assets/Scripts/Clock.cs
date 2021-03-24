@@ -71,7 +71,7 @@ public class Clock : MonoBehaviour
                 hoursPassed++;
 
                 //Check to win game
-                if (hoursPassed > totalHoursToWin)
+                if (hoursPassed >= totalHoursToWin)
                     GameController.instance.Win();
 
                 nextHourTime += hourDuration;

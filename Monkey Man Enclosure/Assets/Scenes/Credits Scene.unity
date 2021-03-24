@@ -859,10 +859,12 @@ MonoBehaviour:
 
     3D Art & Animations: Lowlande52
 
-    Music: Liz Gravis
+    UI Art: Zachary Pitts
 
-    Sound Effects:
-    Christopher Hahn (Foley), Liz Gravis (Synth)'
+    Music:
+    Liz Gravis
+
+    Sound Effects: Christopher Hahn (Foley), Liz Gravis (Synth)'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: c49a476aea9afe743a3f7b68a01cadbe, type: 2}
   m_sharedMaterial: {fileID: -6989888740972326657, guid: c49a476aea9afe743a3f7b68a01cadbe,
@@ -891,8 +893,8 @@ MonoBehaviour:
   m_outlineColor:
     serializedVersion: 2
     rgba: 4278190080
-  m_fontSize: 51.3
-  m_fontSizeBase: 51.3
+  m_fontSize: 49.1
+  m_fontSizeBase: 49.1
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -932,12 +934,12 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 722527647}
-    characterCount: 187
+    characterCount: 209
     spriteCount: 0
-    spaceCount: 24
-    wordCount: 24
+    spaceCount: 28
+    wordCount: 28
     linkCount: 0
-    lineCount: 5
+    lineCount: 6
     pageCount: 1
     materialCount: 1
   m_isUsingLegacyAnimationComponent: 0
@@ -1350,7 +1352,7 @@ MonoBehaviour:
   m_material: {fileID: 0}
   m_sharedMaterial: {fileID: 0}
   m_isDefaultMaterial: 0
-  m_padding: 1.25
+  m_padding: 0
   m_canvasRenderer: {fileID: 1930121808}
   m_TextComponent: {fileID: 100442407}
   m_materialReferenceIndex: 1
