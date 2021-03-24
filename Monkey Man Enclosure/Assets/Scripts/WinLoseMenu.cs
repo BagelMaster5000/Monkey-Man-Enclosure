@@ -6,45 +6,67 @@ public class WinLoseMenu : MonoBehaviour
 {
     bool visible;
     [SerializeField] Transform winLoseMenu;
+    [SerializeField] GameObject monkeyManInMenu;
 
+    [Header("Text")]
     [SerializeField] TextMeshProUGUI mainText;
     [SerializeField] TextMeshProUGUI subText;
+
+    [Header("Animations")]
+    [SerializeField] Animator menuAnimator;
+    [SerializeField] Animator monkeyManAnimator;
 
     private void Start()
     {
         visible = false;
-
-        winLoseMenu.gameObject.SetActive(false);
+        monkeyManInMenu.SetActive(true); // For animation to work
     }
 
     #region In and Out Animation
-    void Update()
+    public void Victory()
     {
-        if (GameController.instance.curGameState == GameController.GameState.GAMEOVER && !visible)
-        {
-            StopAllCoroutines();
-            StartCoroutine(AnimateIn());
-        }
+        SetTexts(true);
+        BeginAnimations(true);
+        StartCoroutine(AnimateIn(true));
     }
 
-    IEnumerator AnimateIn()
+    public void Failure()
+    {
+        SetTexts(false);
+        BeginAnimations(false);
+        StartCoroutine(AnimateIn(false));
+    }
+
+    IEnumerator AnimateIn(bool victory)
     {
         visible = true;
 
         // Scale in
-        winLoseMenu.gameObject.SetActive(true);
-        float curScale = 1.1f;
-        while (curScale > 1.005f)
+        float curScale = 1.4f;
+        while (curScale > 1.29)
         {
-            winLoseMenu.transform.localScale = Vector3.one * curScale;
-            curScale = Mathf.Lerp(curScale, 1, 0.1f);
+            winLoseMenu.localScale = Vector3.one * curScale;
+            curScale = Mathf.Lerp(curScale, 1.28364f, 0.1f);
             yield return new WaitForFixedUpdate();
         }
-        winLoseMenu.transform.localScale = Vector3.one;
+        winLoseMenu.localScale = Vector3.one * 1.28364f;
     }
-    #endregion
 
-    public void SetTexts(bool victory)
+    private void BeginAnimations(bool victory)
+    {
+        if (victory)
+        {
+            menuAnimator.SetTrigger("Victory");
+            monkeyManAnimator.SetTrigger("Victory");
+        }
+        else
+        {
+            menuAnimator.SetTrigger("Failure");
+            monkeyManAnimator.SetTrigger("Failure");
+        }
+    }
+
+    private void SetTexts(bool victory)
     {
         if (victory)
         {
@@ -54,17 +76,19 @@ public class WinLoseMenu : MonoBehaviour
         else
         {
             mainText.text = ":(";
-            subText.text = "The monkey man a heart attack...";
+            subText.text = "Monkey man had a heart attack...";
         }
     }
+    #endregion
 
     public void RestartGame()
     {
-
+        NextSceneFader.instance.FadeToNextScene("Main Scene", false);
     }
 
     public void ExitGame()
     {
-
+        NextSceneFader.instance.FadeToNextScene("Title Scene", true);
+        MusicPlayer.instance.FadeOut();
     }
 }

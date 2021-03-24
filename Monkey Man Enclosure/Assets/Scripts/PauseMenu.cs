@@ -18,14 +18,13 @@ public class PauseMenu : MonoBehaviour
     {
         if (GameController.instance.curGameState == GameController.GameState.PAUSED && !visible)
         {
+            Time.timeScale = 0;
             StopAllCoroutines();
             StartCoroutine(AnimateIn());
         }
         else if (GameController.instance.curGameState != GameController.GameState.PAUSED && visible)
-        {
-            //StopAllCoroutines();
-            //StartCoroutine(AnimateOut());
-
+        { 
+            Time.timeScale = 1;
             visible = false;
             pauseMenu.gameObject.SetActive(false);
         }
@@ -42,39 +41,28 @@ public class PauseMenu : MonoBehaviour
         {
             pauseMenu.transform.localScale = Vector3.one * curScale;
             curScale = Mathf.Lerp(curScale, 1, 0.1f);
-            yield return new WaitForFixedUpdate();
+            yield return new WaitForSecondsRealtime(0.02f);
         }
         pauseMenu.transform.localScale = Vector3.one;
     }
-
-    //IEnumerator AnimateOut()
-    //{
-    //    visible = false;
-
-    //    // Scale out
-    //    float curScale = 1;
-    //    while (curScale > 0.91f)
-    //    {
-    //        pauseMenu.transform.localScale = Vector3.one * curScale;
-    //        curScale -= 0.02f;
-    //        yield return new WaitForFixedUpdate();
-    //    }
-    //    pauseMenu.gameObject.SetActive(false);
-    //}
     #endregion
 
     public void ContinueGame()
     {
+        Time.timeScale = 1;
         GameController.instance.curGameState = GameController.GameState.MAINVIEW;
     }
 
     public void RestartGame()
     {
+        Time.timeScale = 1;
         NextSceneFader.instance.FadeToNextScene("Main Scene", false);
     }
 
     public void ExitGame()
     {
+        Time.timeScale = 1;
         NextSceneFader.instance.FadeToNextScene("Title Scene", true);
+        MusicPlayer.instance.FadeOut();
     }
 }

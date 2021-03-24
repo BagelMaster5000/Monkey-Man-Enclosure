@@ -12,7 +12,7 @@ public class MusicPlayer : MonoBehaviour
     [Range(0.01f, 20)]
     [SerializeField] float fadeInDuration = 0.8f;
     bool fadingOut; // Used to make sure MusicPlayer doesn't crossfade when in the middle of fading out
-    const float FADE_OUT_DURATION = 2; // Needs to be less than duration of scene transition
+    const float FADE_OUT_DURATION = 0.5f; // Needs to be less than duration of scene transition
 
     [Header("Alternative Track")]
     [SerializeField] MusicTrack alternativeMusic;
